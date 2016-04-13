@@ -1,6 +1,7 @@
 package com.game.src.main;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -18,7 +19,7 @@ import javax.swing.JFrame;
  */
 public class GamePanel extends Canvas implements Runnable {
 	//uses runnable to execute the game in a thread
-
+	
 	private static final long serialVersionUID = 1L;
 
 	//Game Canvas size
@@ -53,16 +54,16 @@ public class GamePanel extends Canvas implements Runnable {
 	 * init function to initialize game elements such as images and key listeners for now
 	 */
 	public void init() {
-
 		requestFocus(); // this will make it so that the game window doesn't need be clicked when run
 
-		// This calles the image loader
+		// This calls the image loader
 		BufferedImageLoader loader = new BufferedImageLoader();
+		
 
 		/*****IMAGES LOADED HERE************/
 		try {
 			spriteSheet = loader.loadImage("/wcrosshair.png");
-			background = loader.loadImage("/background.png");
+			background = loader.loadImage("/background.jpg");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -168,15 +169,12 @@ public class GamePanel extends Canvas implements Runnable {
 		Graphics g = bs.getDrawGraphics();
 
 		/*****IMAGES RENDERED HERE************/
-
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 
-		g.drawImage(background, 0, 0, null);
+		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
 
 		p.render(g);
-
 		/*****IMAGES RENDERED HERE************/
-
 		g.dispose(); //cleaup graphics resources
 		bs.show(); // display
 	}
@@ -189,7 +187,6 @@ public class GamePanel extends Canvas implements Runnable {
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode(); //determines the key pressed
 		int moveSpeed = 10; //move speed when key pressed
-
 		/**
 		 * below is the behavior for the directional keys. 
 		 */
@@ -241,11 +238,9 @@ public class GamePanel extends Canvas implements Runnable {
 		frame.pack(); //sets desired sizes to the frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //behavior when window is closed
 		frame.setResizable(false); //window cannot be changed in size
-		//frame.setLocationRelativeTo(null); 
+		//frame.setLocationRelativeTo(null);
 		frame.setVisible(true); //visibility
-
 		game.start(); //start game thread
-
 	}
 	/**
 	 * get sprite sheet method to load the image buffer of the sprite sheet.
