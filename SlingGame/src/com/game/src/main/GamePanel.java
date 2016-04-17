@@ -2,6 +2,7 @@ package com.game.src.main;
 
 import java.awt.Canvas;
 import java.awt.Color;
+//import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -14,7 +15,6 @@ import javax.swing.JFrame;
  * Game canvas will have most of the game mechanics running through here. 
  * 
  * This is where the main class is located and will execute from here.
- * @author AdrianNavidor
  *
  */
 public class GamePanel extends Canvas implements Runnable {
@@ -49,6 +49,10 @@ public class GamePanel extends Canvas implements Runnable {
 	 * Game objects will be loaded here, for now we have the player (cursor) loaded here. 
 	 */
 	private Player p;
+	private Textures textures;
+	private Controller c;
+	
+	private boolean shooting = false;
 
 	/** 
 	 * init function to initialize game elements such as images and key listeners for now
@@ -62,8 +66,8 @@ public class GamePanel extends Canvas implements Runnable {
 
 		/*****IMAGES LOADED HERE************/
 		try {
-			spriteSheet = loader.loadImage("/wcrosshair.png");
-			background = loader.loadImage("/background.jpg");
+			spriteSheet = loader.loadImage("/MainSprite.png");
+			background = loader.loadImage("/background.png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -72,7 +76,10 @@ public class GamePanel extends Canvas implements Runnable {
 		//Key listener initialized here
 		addKeyListener(new KeyInput(this));
 		//player created here in location 200,200 in Game Canvas
-		p = new Player(200, 200, this);
+		textures = new Textures(this);
+		
+		p = new Player(200, 200, textures);
+		c = new Controller(this);
 
 	}
 	/**
@@ -153,6 +160,7 @@ public class GamePanel extends Canvas implements Runnable {
 	//tick method for game objects
 	private void tick() {
 		p.tick();
+		c.tick();
 
 	}
 
@@ -170,10 +178,14 @@ public class GamePanel extends Canvas implements Runnable {
 
 		/*****IMAGES RENDERED HERE************/
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+		
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, 1500,1500); //whitepsace for png to show the school
 
-		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+		g.drawImage(background, 0, 0, getWidth(), getHeight(), this); //background png file
 
 		p.render(g);
+		c.render(g);
 		/*****IMAGES RENDERED HERE************/
 		g.dispose(); //cleaup graphics resources
 		bs.show(); // display
@@ -185,10 +197,10 @@ public class GamePanel extends Canvas implements Runnable {
 	 * this will affect the up,down,left,right keys
 	 */
 	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode(); //determines the key pressed
-		int moveSpeed = 10; //move speed when key pressed
+		int key = e.getKeyCode(); // determines the key pressed
+		int moveSpeed = 10; // move speed when key pressed
 		/**
-		 * below is the behavior for the directional keys. 
+		 * below is the behavior for the directional keys.
 		 */
 		if (key == KeyEvent.VK_RIGHT) {
 			p.setVelX(moveSpeed);
@@ -198,6 +210,9 @@ public class GamePanel extends Canvas implements Runnable {
 			p.setVelY(moveSpeed);
 		} else if (key == KeyEvent.VK_UP) {
 			p.setVelY(-moveSpeed);
+		} else if (key == KeyEvent.VK_SPACE && !shooting) {
+			shooting = true;
+			c.addBeanBag(new BeanBag(p.getX(), p.getY(), this));
 		}
 
 	}
@@ -217,6 +232,8 @@ public class GamePanel extends Canvas implements Runnable {
 			p.setVelY(moveSpeed);
 		} else if (key == KeyEvent.VK_UP) {
 			p.setVelY(-moveSpeed);
+		} else if (key == KeyEvent.VK_SPACE) {
+			shooting = false;
 		}
 
 	}

@@ -19,6 +19,8 @@ public class Player {
 	private double velY = 0; // initial movement velocity in y
 	
 	private BufferedImage player; //buffer image for player
+	
+	private Textures gameTextures;
 
 	/**
 	 * Player is the constructor for the player class, in this case for the cursor. 
@@ -26,14 +28,11 @@ public class Player {
 	 * @param y - y location on the game panel
 	 * @param game - game panel specified
 	 */
-	public Player(double x, double y, GamePanel game) {
+	public Player(double x, double y, Textures textures) {
 		this.x = x;
 		this.y = y;
-
-		//loading the sprite sheet that has the cursor image in it
-		SpriteSheet ss = new SpriteSheet(game.getSpriteSheet());
-		//loading the actual image within the sprite sheet in row1,col1, size 32x32 pxl
-		player = ss.grabImage(1, 1, 32, 32);
+		
+		this.gameTextures = textures;
 	}
 	/*
 	 * tick method for the cursor movement within the game panel
@@ -41,13 +40,25 @@ public class Player {
 	public void tick() {
 		x+=velX;
 		y+=velY;
+		int missingBound=20;
+		
+		/*public static final int WIDTH = 1024;
+	public static final int HEIGHT = 768;*/
+		if(x <= 0 )
+			x=0;
+		if(x>= 1024-missingBound)
+			x=1024-missingBound;
+		if(y<=0)
+			y=0;
+		if(y >= 768-missingBound)
+			y=768-missingBound;
 
 	}
 	/**
 	 * render method that will draw out/update movement on the game panel
 	 */
 	public void render(Graphics g) {
-		g.drawImage(player, (int) x, (int) y, null);
+		g.drawImage(gameTextures.player, (int) x, (int) y, null);
 
 	}
 	/**
