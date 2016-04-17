@@ -8,6 +8,12 @@ public class Trustee {
 	
 	private Textures textures;
 
+	/**
+	 * Trustee constructor
+	 * @param x - x coordinate for trustee start
+	 * @param y - y coordinate for trustee start
+	 * @param textures
+	 */
 	public Trustee(double x, double y, Textures textures) {
 
 		this.x = x;
@@ -17,7 +23,7 @@ public class Trustee {
 	}
 	
 	public void tick(){
-		y-=5;
+		x+=2;
 		
 	}
 	

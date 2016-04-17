@@ -78,8 +78,8 @@ public class GamePanel extends Canvas implements Runnable {
 		//player created here in location 200,200 in Game Canvas
 		textures = new Textures(this);
 		
-		p = new Player(200, 200, textures);
-		c = new Controller(this);
+		p = new Player(500, 520, textures);
+		c = new Controller(this,textures);
 
 	}
 	/**
@@ -212,7 +212,7 @@ public class GamePanel extends Canvas implements Runnable {
 			p.setVelY(-moveSpeed);
 		} else if (key == KeyEvent.VK_SPACE && !shooting) {
 			shooting = true;
-			c.addBeanBag(new BeanBag(p.getX(), p.getY(), this));
+			c.addBeanBag(new BeanBag(p.getX(), p.getY(), textures));
 		}
 
 	}

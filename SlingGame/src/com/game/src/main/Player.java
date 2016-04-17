@@ -1,8 +1,6 @@
 package com.game.src.main;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-
 /**
  * At the moment this class is going to describe the behavior for the player cursor.
  * 
@@ -17,9 +15,7 @@ public class Player {
 
 	private double velX = 0; // initial movement velocity in x
 	private double velY = 0; // initial movement velocity in y
-	
-	private BufferedImage player; //buffer image for player
-	
+		
 	private Textures gameTextures;
 
 	/**
