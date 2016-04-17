@@ -1,7 +1,6 @@
 package com.game.src.main;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
 public class BeanBag {
 

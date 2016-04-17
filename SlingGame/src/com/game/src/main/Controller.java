@@ -5,8 +5,6 @@ import java.util.LinkedList;
 
 public class Controller {
 
-	// private LinkedList<>
-
 	private LinkedList<BeanBag> b = new LinkedList<BeanBag>();
 	private LinkedList<Trustee> e = new LinkedList<Trustee>();
 

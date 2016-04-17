@@ -36,7 +36,7 @@ public class Player {
 	public void tick() {
 		x+=velX;
 		y+=velY;
-		int missingBound=20;
+		int missingBound=50;
 		
 		/*public static final int WIDTH = 1024;
 	public static final int HEIGHT = 768;*/
