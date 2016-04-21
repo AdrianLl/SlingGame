@@ -48,7 +48,7 @@ public class Player {
 			y=0;
 		if(y >= 768-missingBound)
 			y=768-missingBound;
-
+		
 	}
 	/**
 	 * render method that will draw out/update movement on the game panel
