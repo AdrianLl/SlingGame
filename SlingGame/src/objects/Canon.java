@@ -3,6 +3,7 @@ package objects;
 import java.awt.Graphics;
 
 import loaders.Textures;
+
 /**
  * Game canon movement/interactions are made here
  */
@@ -49,12 +50,13 @@ public class Canon {
 			y=768-missingBound;
 		
 	}
+	
 	/**
 	 * render method that will draw out/update movement on the game panel
 	 */
 	public void render(Graphics g) {
-		g.drawImage(gameTextures.canon, (int) x, (int) y, null);
 
+		g.drawImage(gameTextures.canon, (int) x, (int) y, null);
 	}
 	/**
 	 * get/set methods are below to help implement the key listeners and future mouse listener

@@ -24,14 +24,10 @@ public class SpriteSheet {
 	 * This grab image will take in the images on the actual sprite sheet
 	 * depending on what needs to be loaded in.
 	 * 
-	 * @param col
-	 *            - column on the sprite sheet
-	 * @param row
-	 *            - row on the sprite sheet
-	 * @param width
-	 *            - width size width of the graphic
-	 * @param height
-	 *            - height size of the graphic
+	 * @param col - column on the sprite sheet
+	 * @param row - row on the sprite sheet
+	 * @param width - width size width of the graphic
+	 * @param height - height size of the graphic
 	 * @return - the specified image within the spritesheet
 	 */
 	public BufferedImage grabImage(int col, int row, int width, int height) {

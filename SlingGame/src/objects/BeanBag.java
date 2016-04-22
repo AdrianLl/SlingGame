@@ -9,7 +9,7 @@ import loaders.Textures;
  * Movement and rendering will also be described here
  *
  */
-public class BeanBag {
+public class BeanBag implements GameObject{
 
 	//(x,y) coordinate of beanbag on the GamePanel
 	private double x;
@@ -46,5 +46,9 @@ public class BeanBag {
 
 	public double getY() {
 		return y;
+	}
+	@Override
+	public double getX() {
+		return x;
 	}
 }

@@ -85,7 +85,7 @@ public class GamePanel extends Canvas implements Runnable {
 		textures = new Textures(this);
 
 		canon = new Canon(500, 520, textures);
-		c = new Controller(this, textures);
+		c = new Controller(textures);
 
 	}
 	/**
@@ -220,7 +220,7 @@ public class GamePanel extends Canvas implements Runnable {
 			canon.setVelY(-moveSpeed);
 		} else if (key == KeyEvent.VK_SPACE && !shooting) {
 			shooting = true;
-			c.addBeanBag(new BeanBag(canon.getX(), canon.getY(), textures));
+			c.addObject(new BeanBag(canon.getX(), canon.getY(), textures));
 		}
 
 	}
