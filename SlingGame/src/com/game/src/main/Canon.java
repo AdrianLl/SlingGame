@@ -2,13 +2,9 @@ package com.game.src.main;
 
 import java.awt.Graphics;
 /**
- * At the moment this class is going to describe the behavior for the player cursor.
- * 
- * This class will dictate cursor movement and also have the get/set for the key listener
- * that is implemented in the main Game Panel class.
- * 
+ * This class is made for the movement and interactions of the game canon 
  */
-public class Player {
+public class Canon {
 
 	private double x; // x location
 	private double y; // y location
@@ -24,7 +20,7 @@ public class Player {
 	 * @param y - y location on the game panel
 	 * @param game - game panel specified
 	 */
-	public Player(double x, double y, Textures textures) {
+	public Canon(double x, double y, Textures textures) {
 		this.x = x;
 		this.y = y;
 		
@@ -54,7 +50,7 @@ public class Player {
 	 * render method that will draw out/update movement on the game panel
 	 */
 	public void render(Graphics g) {
-		g.drawImage(gameTextures.player, (int) x, (int) y, null);
+		g.drawImage(gameTextures.canon, (int) x, (int) y, null);
 
 	}
 	/**

@@ -48,7 +48,7 @@ public class GamePanel extends Canvas implements Runnable {
 	/**
 	 * Game objects will be loaded here, for now we have the player (cursor) loaded here. 
 	 */
-	private Player p;
+	private Canon canon;
 	private Textures textures;
 	private Controller c;
 	
@@ -78,7 +78,7 @@ public class GamePanel extends Canvas implements Runnable {
 		//player created here in location 200,200 in Game Canvas
 		textures = new Textures(this);
 		
-		p = new Player(500, 520, textures);
+		canon = new Canon(500, 520, textures);
 		c = new Controller(this,textures);
 
 	}
@@ -159,7 +159,7 @@ public class GamePanel extends Canvas implements Runnable {
 
 	//tick method for game objects
 	private void tick() {
-		p.tick();
+		canon.tick();
 		c.tick();
 
 	}
@@ -184,7 +184,7 @@ public class GamePanel extends Canvas implements Runnable {
 
 		g.drawImage(background, 0, 0, getWidth(), getHeight(), this); //background png file
 
-		p.render(g);
+		canon.render(g);
 		c.render(g);
 		/*****IMAGES RENDERED HERE************/
 		g.dispose(); //cleaup graphics resources
@@ -203,16 +203,16 @@ public class GamePanel extends Canvas implements Runnable {
 		 * below is the behavior for the directional keys.
 		 */
 		if (key == KeyEvent.VK_RIGHT) {
-			p.setVelX(moveSpeed);
+			canon.setVelX(moveSpeed);
 		} else if (key == KeyEvent.VK_LEFT) {
-			p.setVelX(-moveSpeed);
+			canon.setVelX(-moveSpeed);
 		} else if (key == KeyEvent.VK_DOWN) {
-			p.setVelY(moveSpeed);
+			canon.setVelY(moveSpeed);
 		} else if (key == KeyEvent.VK_UP) {
-			p.setVelY(-moveSpeed);
+			canon.setVelY(-moveSpeed);
 		} else if (key == KeyEvent.VK_SPACE && !shooting) {
 			shooting = true;
-			c.addBeanBag(new BeanBag(p.getX(), p.getY(), textures));
+			c.addBeanBag(new BeanBag(canon.getX(), canon.getY(), textures));
 		}
 
 	}
@@ -225,13 +225,13 @@ public class GamePanel extends Canvas implements Runnable {
 		int moveSpeed = 0;
 
 		if (key == KeyEvent.VK_RIGHT) {
-			p.setVelX(moveSpeed);
+			canon.setVelX(moveSpeed);
 		} else if (key == KeyEvent.VK_LEFT) {
-			p.setVelX(-moveSpeed);
+			canon.setVelX(-moveSpeed);
 		} else if (key == KeyEvent.VK_DOWN) {
-			p.setVelY(moveSpeed);
+			canon.setVelY(moveSpeed);
 		} else if (key == KeyEvent.VK_UP) {
-			p.setVelY(-moveSpeed);
+			canon.setVelY(-moveSpeed);
 		} else if (key == KeyEvent.VK_SPACE) {
 			shooting = false;
 		}
