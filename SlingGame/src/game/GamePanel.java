@@ -1,4 +1,4 @@
-package com.game.src.main;
+package game;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -11,6 +11,12 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.swing.JFrame;
+
+import loaders.BufferedImageLoader;
+import loaders.KeyInput;
+import loaders.Textures;
+import objects.BeanBag;
+import objects.Canon;
 /**
  * Game canvas will have most of the game mechanics running through here. 
  * 

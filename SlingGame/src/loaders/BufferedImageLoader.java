@@ -1,4 +1,4 @@
-package com.game.src.main;
+package loaders;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

@@ -1,6 +1,8 @@
-package com.game.src.main;
+package loaders;
 
 import java.awt.image.BufferedImage;
+
+import game.GamePanel;
 
 public class Textures {
 

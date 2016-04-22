@@ -1,6 +1,8 @@
-package com.game.src.main;
+package objects;
 
 import java.awt.Graphics;
+
+import loaders.Textures;
 /**
  * This class is made for the movement and interactions of the game canon 
  */

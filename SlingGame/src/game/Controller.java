@@ -1,12 +1,21 @@
-package com.game.src.main;
+package game;
 
 import java.awt.Graphics;
 import java.util.LinkedList;
+import java.util.Random;
+
+import loaders.Textures;
+import objects.BeanBag;
+import objects.Trustee;
 
 public class Controller {
 
+	// beanbags
 	private LinkedList<BeanBag> b = new LinkedList<BeanBag>();
+	// trustee
 	private LinkedList<Trustee> e = new LinkedList<Trustee>();
+
+	Random r = new Random();
 
 	BeanBag tempBeanBag;
 	Trustee tempTrustee;
@@ -19,17 +28,21 @@ public class Controller {
 		this.game = game;
 		this.texture = texture;
 
-		for (int y = 0; y < (GamePanel.WIDTH); y += 200) {
-			addTrustee(new Trustee(y, 193, texture));
-		}
-		
-		for (int y = 100; y < (GamePanel.WIDTH); y += 200) {
-			addTrustee(new Trustee(y, 325, texture));
-		}
-		
-		for (int y = 0; y < (GamePanel.WIDTH); y += 200) {
-			addTrustee(new Trustee(y, 458, texture));
-		}
+		addTrustee(new Trustee(r.nextInt(GamePanel.WIDTH), 193, texture));
+
+		addTrustee(new Trustee(r.nextInt(GamePanel.WIDTH), 325, texture));
+
+		addTrustee(new Trustee(r.nextInt(GamePanel.WIDTH), 458, texture));
+		/*
+		 * for (int y = 0; y < (GamePanel.WIDTH); y += 200) { addTrustee(new
+		 * Trustee(y, 193, texture)); }
+		 * 
+		 * for (int y = 100; y < (GamePanel.WIDTH); y += 200) { addTrustee(new
+		 * Trustee(y, 325, texture)); }
+		 * 
+		 * for (int y = 0; y < (GamePanel.WIDTH); y += 200) { addTrustee(new
+		 * Trustee(y, 458, texture)); }
+		 */
 	}
 
 	public void tick() {
@@ -45,7 +58,6 @@ public class Controller {
 		// trustee
 		for (int i = 0; i < e.size(); i++) {
 			tempTrustee = e.get(i);
-
 			tempTrustee.tick();
 		}
 
@@ -60,7 +72,6 @@ public class Controller {
 		// trustee
 		for (int i = 0; i < e.size(); i++) {
 			tempTrustee = e.get(i);
-
 			tempTrustee.render(g);
 		}
 	}

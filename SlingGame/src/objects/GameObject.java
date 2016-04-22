@@ -1,7 +1,10 @@
-package com.game.src.main;
+package objects;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+
+import game.GamePanel;
+import loaders.SpriteSheet;
 
 /**
  * 

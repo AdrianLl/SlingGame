@@ -1,6 +1,8 @@
-package com.game.src.main;
+package objects;
 
 import java.awt.Graphics;
+
+import loaders.Textures;
 
 public class BeanBag {
 

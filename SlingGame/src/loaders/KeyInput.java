@@ -1,7 +1,9 @@
-package com.game.src.main;
+package loaders;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
+import game.GamePanel;
 /**
  * This Key Adapter was made to test movement with the cursor at the moment.
  * It will be used for more complex controls once we get launching mechanism in place.
