@@ -64,28 +64,28 @@ public class GamePanel extends Canvas implements Runnable {
 	 * init function to initialize game elements such as images and key listeners for now
 	 */
 	public void init() {
-		requestFocus(); // this will make it so that the game window doesn't need be clicked when run
+		requestFocus(); // this will make it so that the game window doesn't
+						// need be clicked when run
 
 		// This calls the image loader
 		BufferedImageLoader loader = new BufferedImageLoader();
-		
 
-		/*****IMAGES LOADED HERE************/
+		/***** IMAGES LOADED HERE ************/
 		try {
 			spriteSheet = loader.loadImage("/MainSprite.png");
 			background = loader.loadImage("/background.png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		/*****IMAGES LOADED HERE************/
+		/***** IMAGES LOADED HERE ************/
 
-		//Key listener initialized here
+		// Key listener initialized here
 		addKeyListener(new KeyInput(this));
-		//player created here in location 200,200 in Game Canvas
+		// player created here in location 200,200 in Game Canvas
 		textures = new Textures(this);
-		
+
 		canon = new Canon(500, 520, textures);
-		c = new Controller(this,textures);
+		c = new Controller(this, textures);
 
 	}
 	/**
@@ -95,9 +95,9 @@ public class GamePanel extends Canvas implements Runnable {
 		if (running)
 			return;
 
-		running = true; //start
+		running = true; // start
 		thread = new Thread(this);
-		thread.start(); 
+		thread.start();
 	}
 	
 	/**
@@ -125,21 +125,22 @@ public class GamePanel extends Canvas implements Runnable {
 	 */
 	public void run() {
 
-		init(); //initializes all game elements
+		init(); // initializes all game elements
 
 		long lastTime = System.nanoTime(); // gets system time
 		final double ticks = 60.0; // desired ticks
-		double ns = 1000000000 / ticks; //nano seconds/ticks
+		double ns = 1000000000 / ticks; // nano seconds/ticks
 		double delta = 0;
 
-		int updates = 0; //updates on canvas
-		int frames = 0; //frames running
-		long timer = System.currentTimeMillis(); //gets system in milliseconds
+		int updates = 0; // updates on canvas
+		int frames = 0; // frames running
+		long timer = System.currentTimeMillis(); // gets system in milliseconds
 
 		/**
-		 * The loop below will set tick and frame rate for the refresh that is occuring on the screen.
-		 * This was borrowed from a game made in a previous semester will be commented more or adjusted
-		 * depending on how it runs once more objects are loaded etc.
+		 * The loop below will set tick and frame rate for the refresh that is
+		 * occuring on the screen. This was borrowed from a game made in a
+		 * previous semester will be commented more or adjusted depending on how
+		 * it runs once more objects are loaded etc.
 		 */
 		while (running) {
 			long now = System.nanoTime();
@@ -172,8 +173,8 @@ public class GamePanel extends Canvas implements Runnable {
 
 	//render method to draw the images on the canvas
 	private void render() {
-		
-		//buffer load mechanism is below.
+
+		// buffer load mechanism is below.
 		BufferStrategy bs = this.getBufferStrategy();
 		if (bs == null) {
 			createBufferStrategy(3);
@@ -182,18 +183,19 @@ public class GamePanel extends Canvas implements Runnable {
 
 		Graphics g = bs.getDrawGraphics();
 
-		/*****IMAGES RENDERED HERE************/
+		/***** IMAGES RENDERED HERE ************/
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-		
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, 1500,1500); //whitepsace for png to show the school
 
-		g.drawImage(background, 0, 0, getWidth(), getHeight(), this); //background png file
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, 1500, 1500); // whitepsace for png to show the school
+
+		// loads game background in png
+		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
 
 		canon.render(g);
 		c.render(g);
-		/*****IMAGES RENDERED HERE************/
-		g.dispose(); //cleaup graphics resources
+		/***** IMAGES RENDERED HERE ************/
+		g.dispose(); // cleaup graphics resources
 		bs.show(); // display
 	}
 
@@ -222,10 +224,11 @@ public class GamePanel extends Canvas implements Runnable {
 		}
 
 	}
-/**
- * behavior on key release, might need to be modified depending on game mechanics.
- * at the moment stops movement on the cursor when key released
- */
+
+	/**
+	 * behavior on key release, might need to be modified depending on game
+	 * mechanics. at the moment stops movement on the cursor when key released
+	 */
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		int moveSpeed = 0;
@@ -243,28 +246,34 @@ public class GamePanel extends Canvas implements Runnable {
 		}
 
 	}
-/**
- * This is the main class that is executed for the Game Panel to run
- */
+
+	/**
+	 * This is the main class that is executed for the Game Panel to run
+	 */
 	public static void main(String args[]) {
 
 		GamePanel game = new GamePanel(); // game panel initialized
 		/**
 		 * below sets window dimensions to create a stable game panel.
 		 */
-		game.setPreferredSize(new Dimension(WIDTH, HEIGHT)); // set window dimensions
+		game.setPreferredSize(new Dimension(WIDTH, HEIGHT)); // set window
+																// dimensions
 		game.setMaximumSize(new Dimension(WIDTH, HEIGHT));
 		game.setMinimumSize(new Dimension(WIDTH, HEIGHT));
 
-		JFrame frame = new JFrame(game.TITLE); //jframe with game tittle initialized
+		JFrame frame = new JFrame(game.TITLE); // jframe with game tittle
+												// initialized
 		frame.add(game); // adds the game panel to the frame
-		frame.pack(); //sets desired sizes to the frame
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //behavior when window is closed
-		frame.setResizable(false); //window cannot be changed in size
-		//frame.setLocationRelativeTo(null);
-		frame.setVisible(true); //visibility
-		game.start(); //start game thread
+		frame.pack(); // sets desired sizes to the frame
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // behavior when
+																// window is
+																// closed
+		frame.setResizable(false); // window cannot be changed in size
+		// frame.setLocationRelativeTo(null);
+		frame.setVisible(true); // visibility
+		game.start(); // start game thread
 	}
+
 	/**
 	 * get sprite sheet method to load the image buffer of the sprite sheet.
 	 */

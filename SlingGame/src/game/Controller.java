@@ -8,6 +8,12 @@ import loaders.Textures;
 import objects.BeanBag;
 import objects.Trustee;
 
+/**
+ * The controller class will a lot of the game movement such as:
+ * -trustee spawning
+ * -bean bag spawning
+ * -movement/direction of trustees
+ */
 public class Controller {
 
 	// beanbags

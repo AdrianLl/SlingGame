@@ -4,12 +4,13 @@ import java.awt.Graphics;
 
 import loaders.Textures;
 /**
- * This class is made for the movement and interactions of the game canon 
+ * Game canon movement/interactions are made here
  */
 public class Canon {
 
-	private double x; // x location
-	private double y; // y location
+	//(x,y) coordinate location of canon
+	private double x;
+	private double y;
 
 	private double velX = 0; // initial movement velocity in x
 	private double velY = 0; // initial movement velocity in y
