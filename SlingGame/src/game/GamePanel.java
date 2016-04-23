@@ -14,7 +14,6 @@ import javax.swing.JFrame;
 
 import loaders.BufferedImageLoader;
 import loaders.KeyInput;
-import loaders.Textures;
 import objects.BeanBag;
 import objects.Canon;
 /**

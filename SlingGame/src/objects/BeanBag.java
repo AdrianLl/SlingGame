@@ -2,7 +2,7 @@ package objects;
 
 import java.awt.Graphics;
 
-import loaders.Textures;
+import game.Textures;
 /**
  * The BeanBag class will describe the bean bags.
  * Details such as (x,y) location can be set as well as the texture being used

@@ -2,7 +2,7 @@ package objects;
 
 import java.awt.Graphics;
 
-import loaders.Textures;
+import game.Textures;
 
 /**
  * Game canon movement/interactions are made here
