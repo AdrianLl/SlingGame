@@ -3,9 +3,9 @@ package objects;
 import java.awt.Graphics;
 import java.util.Random;
 
-import game.Animation;
 import game.GamePanel;
 import game.Textures;
+import loaders.Animation;
 
 public class Trustee implements GameObject {
 

@@ -2,9 +2,13 @@ package game;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Cursor;
 //import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -16,77 +20,74 @@ import loaders.BufferedImageLoader;
 import loaders.KeyInput;
 import objects.BeanBag;
 import objects.Canon;
+
 /**
- * Game canvas will have most of the game mechanics running through here. 
+ * Game canvas will have most of the game mechanics running through here.
  * 
  * This is where the main class is located and will execute from here.
  *
  */
 public class GamePanel extends Canvas implements Runnable {
-	//uses runnable to execute the game in a thread
-	
+	// uses runnable to execute the game in a thread
+
 	private static final long serialVersionUID = 1L;
 
-	//Game Canvas size
+	// Game Canvas size
 	public static final int WIDTH = 1024;
 	public static final int HEIGHT = 768;
-	//Game Canvas Title Bar at the top
-	public final String TITLE = "Trustee Down";
-	//Game Canvas running state
+	// Game Canvas Title Bar at the top
+	public final String TITLE = "Trustee Down v3";
+	// Game Canvas running state
 	private boolean running = false;
-	//Game canvas thread
+	// Game canvas thread
 	private Thread thread;
-
-	/*
-	 * image buffer loaders
-	 * 
-	 * image - loads the actual image 
-	 * spriteSheet - loads the sprite sheet containing graphic elements
-	 * background - loads the background image for the game
-	 * 
-	 */
-
+	
+	
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private BufferedImage spriteSheet = null;
+	// spriteSheet - loads the sprite sheet containing graphic elements
 	private BufferedImage background = null;
+	// background - loads the background image for the game
+	//private BufferedImage test= null;
 
 	/**
-	 * Game objects will be loaded here, for now we have the player (cursor) loaded here. 
+	 * Game objects will be loaded here, for now we have the player (cursor)
+	 * loaded here.
 	 */
 	private Canon canon;
 	private Textures textures;
 	private Controller c;
-	
+
 	private boolean shooting = false;
 
-	/** 
-	 * init function to initialize game elements such as images and key listeners for now
+	/**
+	 * init function to initialize game elements such as images and key
+	 * listeners for now
 	 */
 	public void init() {
-		requestFocus(); // this will make it so that the game window doesn't
-						// need be clicked when run
+		requestFocus(); // makes the game panel the main focus when opened
 
-		// This calls the image loader
 		BufferedImageLoader loader = new BufferedImageLoader();
+		// image loader initiated
 
-		/***** IMAGES LOADED HERE ************/
+		/************ IMAGES LOADED HERE ************/
 		try {
 			spriteSheet = loader.loadImage("/MainSprite.png");
 			background = loader.loadImage("/background.png");
+			//test= loader.loadImage("/crosshair.png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		/***** IMAGES LOADED HERE ************/
+		/************ IMAGES LOADED HERE ************/
 
-		// Key listener initialized here
-		addKeyListener(new KeyInput(this));
-		// player created here in location 200,200 in Game Canvas
+		crosshair(); // loads the crosshair cursor
+		
+		addKeyListener(new KeyInput(this)); // key listener initialized
 		textures = new Textures(this);
-
-		canon = new Canon(500, 520, textures);
-		c = new Controller(textures);
-
+		canon = new Canon(500, 520, textures); // canon initialized
+		c = new Controller(textures); // game controller initialized
 	}
+
 	/**
 	 * Starts the game thread
 	 */
@@ -98,7 +99,7 @@ public class GamePanel extends Canvas implements Runnable {
 		thread = new Thread(this);
 		thread.start();
 	}
-	
+
 	/**
 	 * Stops the game thread
 	 */
@@ -117,10 +118,10 @@ public class GamePanel extends Canvas implements Runnable {
 	}
 
 	@Override
-	
+
 	/**
-	 * Run will determine the way the thread runs
-	 * ticks and fps will be determined here
+	 * Run will determine the way the thread runs ticks and fps will be
+	 * determined here
 	 */
 	public void run() {
 
@@ -163,14 +164,14 @@ public class GamePanel extends Canvas implements Runnable {
 		stop();
 	}
 
-	//tick method for game objects
+	// tick method for game objects
 	private void tick() {
 		canon.tick();
 		c.tick();
 
 	}
 
-	//render method to draw the images on the canvas
+	// render method to draw the images on the canvas
 	private void render() {
 
 		// buffer load mechanism is below.
@@ -183,19 +184,20 @@ public class GamePanel extends Canvas implements Runnable {
 		Graphics g = bs.getDrawGraphics();
 
 		/***** IMAGES RENDERED HERE ************/
-		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-
-		g.setColor(Color.WHITE);
+		g.drawImage(image, 0,0,getWidth(),getHeight(),this);
+		g.setColor(Color.WHITE); // whitespace color
 		g.fillRect(0, 0, 1500, 1500); // whitepsace for png to show the school
 
-		// loads game background in png
 		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+		// draw background
+		
+		//g.drawImage(test, 0, 0, null);
 
 		canon.render(g);
 		c.render(g);
 		/***** IMAGES RENDERED HERE ************/
-		g.dispose(); // cleaup graphics resources
-		bs.show(); // display
+		g.dispose(); // clean up graphic resources in the game
+		bs.show(); // display (buffer strategy)
 	}
 
 	/**
@@ -247,36 +249,43 @@ public class GamePanel extends Canvas implements Runnable {
 	}
 
 	/**
-	 * This is the main class that is executed for the Game Panel to run
-	 */
-	public static void main(String args[]) {
-
-		GamePanel game = new GamePanel(); // game panel initialized
-		/**
-		 * below sets window dimensions to create a stable game panel.
-		 */
-		game.setPreferredSize(new Dimension(WIDTH, HEIGHT)); // set window
-																// dimensions
-		game.setMaximumSize(new Dimension(WIDTH, HEIGHT));
-		game.setMinimumSize(new Dimension(WIDTH, HEIGHT));
-
-		JFrame frame = new JFrame(game.TITLE); // jframe with game tittle
-												// initialized
-		frame.add(game); // adds the game panel to the frame
-		frame.pack(); // sets desired sizes to the frame
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // behavior when
-																// window is
-																// closed
-		frame.setResizable(false); // window cannot be changed in size
-		// frame.setLocationRelativeTo(null);
-		frame.setVisible(true); // visibility
-		game.start(); // start game thread
-	}
-
-	/**
 	 * get sprite sheet method to load the image buffer of the sprite sheet.
 	 */
 	public BufferedImage getSpriteSheet() {
 		return spriteSheet;
 	}
+
+	public void crosshair() {
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Image img = toolkit.getImage("images/crosshair.png");
+		Point point = new Point(15, 15);
+		Cursor crosshair = toolkit.createCustomCursor(img, point, "crosshair");
+
+		setCursor(crosshair);
+	}
+
+	/**
+	 * This is the main class that is executed for the Game Panel to run
+	 */
+	public static void main(String args[]) {
+
+		GamePanel game = new GamePanel(); // game panel initialized
+		game.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		game.setMaximumSize(new Dimension(WIDTH, HEIGHT));
+		game.setMinimumSize(new Dimension(WIDTH, HEIGHT));
+		// window dimensions for game panel are set above
+
+		JFrame frame = new JFrame(game.TITLE);
+		// jframe with game tittle initialized
+
+		frame.add(game); // adds the game panel to the frame
+		frame.pack(); // sets desired sizes to the frame
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// window close behavior
+		frame.setResizable(false); // window cannot be changed in size
+		frame.setLocationRelativeTo(null); // centers game panel
+		frame.setVisible(true); // visibility
+		game.start(); // start game thread
+	}
+
 }
