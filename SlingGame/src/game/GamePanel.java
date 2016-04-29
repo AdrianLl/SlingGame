@@ -48,7 +48,7 @@ public class GamePanel extends Canvas implements Runnable {
 	// spriteSheet - loads the sprite sheet containing graphic elements
 	private BufferedImage background = null;
 	// background - loads the background image for the game
-	//private BufferedImage test= null;
+	private BufferedImage test= null;
 
 	/**
 	 * Game objects will be loaded here, for now we have the player (cursor)
@@ -74,7 +74,7 @@ public class GamePanel extends Canvas implements Runnable {
 		try {
 			spriteSheet = loader.loadImage("/MainSprite.png");
 			background = loader.loadImage("/background.png");
-			//test= loader.loadImage("/crosshair.png");
+			test = loader.loadImage("/crosshair.png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -221,7 +221,7 @@ public class GamePanel extends Canvas implements Runnable {
 			canon.setVelY(-moveSpeed);
 		} else if (key == KeyEvent.VK_SPACE && !shooting) {
 			shooting = true;
-			c.addObject(new BeanBag(canon.getX(), canon.getY(), textures));
+			c.addObject(new BeanBag(canon.getX(), canon.getY()-40, textures));
 		}
 
 	}
@@ -257,7 +257,7 @@ public class GamePanel extends Canvas implements Runnable {
 
 	public void crosshair() {
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Image img = toolkit.getImage("images/crosshair.png");
+		Image img = (Image)test;
 		Point point = new Point(15, 15);
 		Cursor crosshair = toolkit.createCustomCursor(img, point, "crosshair");
 
