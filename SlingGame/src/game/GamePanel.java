@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -18,6 +19,7 @@ import javax.swing.JFrame;
 
 import loaders.BufferedImageLoader;
 import loaders.KeyInput;
+import loaders.MouseInput;
 import objects.BeanBag;
 import objects.Canon;
 
@@ -31,6 +33,7 @@ public class GamePanel extends Canvas implements Runnable {
 	// uses runnable to execute the game in a thread
 
 	private static final long serialVersionUID = 1L;
+	//serial id to ensure different versions don't get confused
 
 	// Game Canvas size
 	public static final int WIDTH = 1024;
@@ -48,7 +51,7 @@ public class GamePanel extends Canvas implements Runnable {
 	// spriteSheet - loads the sprite sheet containing graphic elements
 	private BufferedImage background = null;
 	// background - loads the background image for the game
-	private BufferedImage test= null;
+	private BufferedImage crosshairImage= null;
 
 	/**
 	 * Game objects will be loaded here, for now we have the player (cursor)
@@ -74,7 +77,7 @@ public class GamePanel extends Canvas implements Runnable {
 		try {
 			spriteSheet = loader.loadImage("/MainSprite.png");
 			background = loader.loadImage("/background.png");
-			test = loader.loadImage("/crosshair.png");
+			crosshairImage = loader.loadImage("/crosshair.png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -82,7 +85,10 @@ public class GamePanel extends Canvas implements Runnable {
 
 		crosshair(); // loads the crosshair cursor
 		
+			
 		addKeyListener(new KeyInput(this)); // key listener initialized
+		addMouseListener(new MouseInput(this));	
+		
 		textures = new Textures(this);
 		canon = new Canon(500, 520, textures); // canon initialized
 		c = new Controller(textures); // game controller initialized
@@ -247,6 +253,12 @@ public class GamePanel extends Canvas implements Runnable {
 		}
 
 	}
+	
+	public void mousePressed(MouseEvent e){
+		//test
+		System.out.println("XLOC: "+ e.getX()+ " YLOC: "+e.getY());		
+		c.addObject(new BeanBag(canon.getX(), canon.getY()-40, textures,e.getX(),e.getY()));
+	}
 
 	/**
 	 * get sprite sheet method to load the image buffer of the sprite sheet.
@@ -257,7 +269,7 @@ public class GamePanel extends Canvas implements Runnable {
 
 	public void crosshair() {
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Image img = (Image)test;
+		Image img = (Image)crosshairImage;
 		Point point = new Point(15, 15);
 		Cursor crosshair = toolkit.createCustomCursor(img, point, "crosshair");
 

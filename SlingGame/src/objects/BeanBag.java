@@ -14,6 +14,8 @@ public class BeanBag implements GameObject{
 	//(x,y) coordinate of beanbag on the GamePanel
 	private double x;
 	private double y;
+	private double xDir;
+	private double yDir;
 
 	//loads the images that is set for the beanbag
 	private Textures texture;
@@ -29,15 +31,25 @@ public class BeanBag implements GameObject{
 		this.y = y;
 		this.texture = texture;
 	}
+	
+	public BeanBag(double x, double y, Textures texture, double xDir,double yDir){
+		this.x = x;
+		this.y = y;
+		this.texture = texture;
+		this.xDir=xDir;
+		this.yDir=yDir;
+	}
 	/**
 	 * The tick method dictates beanbag movement in the x or y direction.
 	 * Depending on the movement that is added per tick it will also determine movement speed
 	 */
 
 	public void tick() {
-		//at the moment the bean bag is only moving in the y direction
-		//moves up by 7 when shot out of the canon
-		y -= 7;
+		// at the moment the bean bag is only moving in the y direction
+		// moves up by 7 when shot out of the canon
+		x -= xDir / 100;
+		y -= yDir / 100;
+
 	}
 
 	public void render(Graphics g) {
