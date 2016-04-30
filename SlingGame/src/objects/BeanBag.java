@@ -42,10 +42,14 @@ public class BeanBag extends GameObject implements PlayerObjects{
 	 */
 
 	public void tick() {
-		// at the moment the bean bag is only moving in the y direction
-		// moves up by 7 when shot out of the canon
-		x -= xDir / 100;
-		y -= yDir / 100;
+		if(xDir>=539){
+			x += xDir / 100;
+			y -= yDir / 100;
+			
+		}else{
+			x -= yDir / 100;
+			y -= xDir / 100;
+		}
 	}
 
 	public void render(Graphics g) {

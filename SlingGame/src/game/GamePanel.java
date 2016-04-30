@@ -3,8 +3,6 @@ package game;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Cursor;
-//import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -15,8 +13,6 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.LinkedList;
-
-import javax.swing.JFrame;
 
 import loaders.BufferedImageLoader;
 import loaders.KeyInput;
@@ -36,25 +32,25 @@ public class GamePanel extends Canvas implements Runnable {
 	// uses runnable to execute the game in a thread
 
 	private static final long serialVersionUID = 1L;
-	//serial id to ensure different versions don't get confused
+	// serial id to ensure different versions don't get confused
 
 	// Game Canvas size
 	public static final int WIDTH = 1024;
 	public static final int HEIGHT = 768;
+
 	// Game Canvas Title Bar at the top
 	public final String TITLE = "Trustee Down v3";
 	// Game Canvas running state
 	private boolean running = false;
 	// Game canvas thread
 	private Thread thread;
-	
-	
+
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private BufferedImage spriteSheet = null;
 	// spriteSheet - loads the sprite sheet containing graphic elements
 	private BufferedImage background = null;
 	// background - loads the background image for the game
-	private BufferedImage crosshairImage= null;
+	private BufferedImage crosshairImage = null;
 
 	/**
 	 * Game objects will be loaded here, for now we have the player (cursor)
@@ -66,13 +62,13 @@ public class GamePanel extends Canvas implements Runnable {
 
 	public LinkedList<PlayerObjects> po;
 	public LinkedList<EnemyObjects> eo;
-	
-	
 
 	/**
 	 * init function to initialize game elements such as images and key
 	 * listeners for now
 	 */
+	
+	
 	public void init() {
 		requestFocus(); // makes the game panel the main focus when opened
 
@@ -96,7 +92,7 @@ public class GamePanel extends Canvas implements Runnable {
 
 		textures = new Textures(this);
 		canon = new Canon(500, 520, textures); // canon initialized
-		c = new Controller(textures,this); // game controller initialized
+		c = new Controller(textures, this); // game controller initialized
 
 		po = c.getPlayerObjects();
 		eo = c.getEnemyObjects();
@@ -106,7 +102,7 @@ public class GamePanel extends Canvas implements Runnable {
 	/**
 	 * Starts the game thread
 	 */
-	private synchronized void start() {
+	public synchronized void start() {
 		if (running)
 			return;
 
@@ -199,14 +195,14 @@ public class GamePanel extends Canvas implements Runnable {
 		Graphics g = bs.getDrawGraphics();
 
 		/***** IMAGES RENDERED HERE ************/
-		g.drawImage(image, 0,0,getWidth(),getHeight(),this);
+		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 		g.setColor(Color.WHITE); // whitespace color
 		g.fillRect(0, 0, 1500, 1500); // whitepsace for png to show the school
 
 		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
 		// draw background
-		
-		//g.drawImage(test, 0, 0, null);
+
+		// g.drawImage(test, 0, 0, null);
 
 		canon.render(g);
 		c.render(g);
@@ -256,11 +252,11 @@ public class GamePanel extends Canvas implements Runnable {
 		}
 
 	}
-	
-	public void mousePressed(MouseEvent e){
-		//test
-		System.out.println("XLOC: "+ e.getX()+ " YLOC: "+e.getY());		
-		c.addObject(new BeanBag(canon.getX(), canon.getY()-40, textures,e.getX(),e.getY()));
+
+	public void mousePressed(MouseEvent e) {
+		// test
+		System.out.println("XLOC: " + e.getX() + " YLOC: " + e.getY());
+		c.addObject(new BeanBag(canon.getX(), canon.getY() - 40, textures, e.getX(), e.getY()));
 	}
 
 	/**
@@ -272,35 +268,10 @@ public class GamePanel extends Canvas implements Runnable {
 
 	public void crosshair() {
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Image img = (Image)crosshairImage;
+		Image img = (Image) crosshairImage;
 		Point point = new Point(15, 15);
 		Cursor crosshair = toolkit.createCustomCursor(img, point, "crosshair");
 
 		setCursor(crosshair);
 	}
-
-	/**
-	 * This is the main class that is executed for the Game Panel to run
-	 */
-	public static void main(String args[]) {
-
-		GamePanel game = new GamePanel(); // game panel initialized
-		game.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		game.setMaximumSize(new Dimension(WIDTH, HEIGHT));
-		game.setMinimumSize(new Dimension(WIDTH, HEIGHT));
-		// window dimensions for game panel are set above
-
-		JFrame frame = new JFrame(game.TITLE);
-		// jframe with game tittle initialized
-
-		frame.add(game); // adds the game panel to the frame
-		frame.pack(); // sets desired sizes to the frame
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// window close behavior
-		frame.setResizable(false); // window cannot be changed in size
-		frame.setLocationRelativeTo(null); // centers game panel
-		frame.setVisible(true); // visibility
-		game.start(); // start game thread
-	}
-
 }
