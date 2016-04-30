@@ -65,6 +65,6 @@ public class BeanBag extends GameObject implements PlayerObjects{
 	}
 	
 	public Rectangle getBounds(){
-		return new Rectangle((int)x,(int)y,90,90);
+		return new Rectangle((int)x,(int)y,60,60);
 	}
 }
