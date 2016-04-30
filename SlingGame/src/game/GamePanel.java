@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.LinkedList;
 
 import javax.swing.JFrame;
 
@@ -22,6 +23,8 @@ import loaders.KeyInput;
 import loaders.MouseInput;
 import objects.BeanBag;
 import objects.Canon;
+import objects.EnemyObjects;
+import objects.PlayerObjects;
 
 /**
  * Game canvas will have most of the game mechanics running through here.
@@ -61,7 +64,12 @@ public class GamePanel extends Canvas implements Runnable {
 	private Textures textures;
 	private Controller c;
 
+	public LinkedList<PlayerObjects> po;
+	public LinkedList<EnemyObjects> eo;
+	
 	private boolean shooting = false;
+	
+	
 
 	/**
 	 * init function to initialize game elements such as images and key
@@ -84,14 +92,17 @@ public class GamePanel extends Canvas implements Runnable {
 		/************ IMAGES LOADED HERE ************/
 
 		crosshair(); // loads the crosshair cursor
-		
-			
+
 		addKeyListener(new KeyInput(this)); // key listener initialized
-		addMouseListener(new MouseInput(this));	
-		
+		addMouseListener(new MouseInput(this));
+
 		textures = new Textures(this);
 		canon = new Canon(500, 520, textures); // canon initialized
 		c = new Controller(textures); // game controller initialized
+
+		po = c.getPlayerObjects();
+		eo = c.getEnemyObjects();
+
 	}
 
 	/**
@@ -227,7 +238,7 @@ public class GamePanel extends Canvas implements Runnable {
 			canon.setVelY(-moveSpeed);
 		} else if (key == KeyEvent.VK_SPACE && !shooting) {
 			shooting = true;
-			c.addObject(new BeanBag(canon.getX(), canon.getY()-40, textures));
+			c.addObject(new BeanBag(canon.getX(), canon.getY()-40, textures,this));
 		}
 
 	}
@@ -257,7 +268,7 @@ public class GamePanel extends Canvas implements Runnable {
 	public void mousePressed(MouseEvent e){
 		//test
 		System.out.println("XLOC: "+ e.getX()+ " YLOC: "+e.getY());		
-		c.addObject(new BeanBag(canon.getX(), canon.getY()-40, textures,e.getX(),e.getY()));
+		c.addObject(new BeanBag(canon.getX(), canon.getY()-40, textures,e.getX(),e.getY(),this));
 	}
 
 	/**

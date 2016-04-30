@@ -76,5 +76,12 @@ public class Controller {
 	public void removeObject(EnemyObjects block) {
 		eo.remove(block);
 	}
+	
+	public LinkedList<PlayerObjects> getPlayerObjects(){
+		return po;
+	}
+	public LinkedList<EnemyObjects> getEnemyObjects(){
+		return eo;
+	}
 
 }

@@ -1,6 +1,7 @@
 package objects;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.Random;
 
 import game.GamePanel;
@@ -60,5 +61,9 @@ public class Trustee extends GameObject implements EnemyObjects {
 
 	public double getY() {
 		return y;
+	}
+
+	public Rectangle getBounds(){
+		return new Rectangle((int)x,(int)y,90,90);
 	}
 }
