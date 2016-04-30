@@ -67,8 +67,6 @@ public class GamePanel extends Canvas implements Runnable {
 	public LinkedList<PlayerObjects> po;
 	public LinkedList<EnemyObjects> eo;
 	
-	private boolean shooting = false;
-	
 	
 
 	/**
@@ -98,7 +96,7 @@ public class GamePanel extends Canvas implements Runnable {
 
 		textures = new Textures(this);
 		canon = new Canon(500, 520, textures); // canon initialized
-		c = new Controller(textures); // game controller initialized
+		c = new Controller(textures,this); // game controller initialized
 
 		po = c.getPlayerObjects();
 		eo = c.getEnemyObjects();
@@ -236,11 +234,7 @@ public class GamePanel extends Canvas implements Runnable {
 			canon.setVelY(moveSpeed);
 		} else if (key == KeyEvent.VK_UP) {
 			canon.setVelY(-moveSpeed);
-		} else if (key == KeyEvent.VK_SPACE && !shooting) {
-			shooting = true;
-			c.addObject(new BeanBag(canon.getX(), canon.getY()-40, textures,this));
 		}
-
 	}
 
 	/**
@@ -259,8 +253,6 @@ public class GamePanel extends Canvas implements Runnable {
 			canon.setVelY(moveSpeed);
 		} else if (key == KeyEvent.VK_UP) {
 			canon.setVelY(-moveSpeed);
-		} else if (key == KeyEvent.VK_SPACE) {
-			shooting = false;
 		}
 
 	}
@@ -268,7 +260,7 @@ public class GamePanel extends Canvas implements Runnable {
 	public void mousePressed(MouseEvent e){
 		//test
 		System.out.println("XLOC: "+ e.getX()+ " YLOC: "+e.getY());		
-		c.addObject(new BeanBag(canon.getX(), canon.getY()-40, textures,e.getX(),e.getY(),this));
+		c.addObject(new BeanBag(canon.getX(), canon.getY()-40, textures,e.getX(),e.getY()));
 	}
 
 	/**

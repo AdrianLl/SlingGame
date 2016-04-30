@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import game.Collisions;
+import game.Controller;
 import game.GamePanel;
 import game.Textures;
 import loaders.Animation;
@@ -14,6 +16,10 @@ public class Trustee extends GameObject implements EnemyObjects {
 
 	Animation trusteeAnimation;
 
+	private GamePanel game;
+
+	private Controller c;
+
 	/**
 	 * Trustee constructor
 	 * 
@@ -23,7 +29,7 @@ public class Trustee extends GameObject implements EnemyObjects {
 	 *            y coordinate for trustee start
 	 * @param textures
 	 */
-	public Trustee(double x, double y, Textures textures) {
+	public Trustee(double x, double y, Textures textures, Controller c, GamePanel game) {
 
 		super(x, y);
 
@@ -32,6 +38,8 @@ public class Trustee extends GameObject implements EnemyObjects {
 				textures.trustees[7], textures.trustees[8], textures.trustees[9], textures.trustees[10],
 				textures.trustees[11], textures.trustees[12], textures.trustees[13]);
 
+		this.c = c;
+		this.game = game;
 	}
 
 	public void tick() {
@@ -40,9 +48,16 @@ public class Trustee extends GameObject implements EnemyObjects {
 		if (x > (GamePanel.WIDTH)) {
 			x = 0;
 
-			// line below makes random spawn on y but won't be needed
-			// if the game will be just using the 3 paths
-			// y=r.nextInt(GamePanel.HEIGHT);
+		}
+
+		for (int i = 0; i < game.po.size(); i++) {
+
+			PlayerObjects tempPlayer = game.po.get(i);
+
+			if (Collisions.Collision(this, tempPlayer)) {
+				c.removeObject(tempPlayer);
+				c.removeObject(this);
+			}
 
 		}
 
@@ -63,7 +78,7 @@ public class Trustee extends GameObject implements EnemyObjects {
 		return y;
 	}
 
-	public Rectangle getBounds(){
-		return new Rectangle((int)x,(int)y,90,90);
+	public Rectangle getBounds() {
+		return new Rectangle((int) x, (int) y, 90, 90);
 	}
 }

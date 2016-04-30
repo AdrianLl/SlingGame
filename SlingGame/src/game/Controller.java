@@ -22,13 +22,18 @@ public class Controller {
 	PlayerObjects playerObj;
 	EnemyObjects enemyObj;
 
-	Random r = new Random(); //random num generator for random spawning
+	private Random r = new Random(); //random num generator for random spawning
 
-	public Controller(Textures textures) {
+	Textures textures;
+	GamePanel game;
+	
+	public Controller(Textures textures, GamePanel game) {
 		//for now just randomly spawning in the x direction on the three paths
-		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 193, textures));
-		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 325, textures));
-		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 458, textures));
+		this.textures=textures;
+		this.game=game;
+		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 193, textures,this,game));
+		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 325, textures,this,game));
+		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 458, textures,this,game));
 
 	}
 

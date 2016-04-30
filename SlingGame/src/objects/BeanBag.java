@@ -3,8 +3,6 @@ package objects;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import game.GamePanel;
-import game.Collisions;
 import game.Textures;
 /**
  * The BeanBag class will describe the bean bags.
@@ -13,8 +11,6 @@ import game.Textures;
  *
  */
 public class BeanBag extends GameObject implements PlayerObjects{
-
-	private GamePanel game;
 	
 	//(x,y) coordinate of beanbag on the GamePanel
 	private double xDir;
@@ -29,18 +25,16 @@ public class BeanBag extends GameObject implements PlayerObjects{
 	 * @param y - location within y coordinate
 	 * @param texture - image loaded for beanbag
 	 */
-	public BeanBag(double x, double y, Textures texture,GamePanel game) {
-		super(x,y);
+	public BeanBag(double x, double y, Textures texture) {
+		super(x, y);
 		this.texture = texture;
-		this.game=game;
 	}
 	
-	public BeanBag(double x, double y, Textures texture, double xDir,double yDir, GamePanel game){
-		super(x,y);
+	public BeanBag(double x, double y, Textures texture, double xDir, double yDir) {
+		super(x, y);
 		this.texture = texture;
-		this.xDir=xDir;
-		this.yDir=yDir;
-		this.game=game;
+		this.xDir = xDir;
+		this.yDir = yDir;
 	}
 	/**
 	 * The tick method dictates beanbag movement in the x or y direction.
@@ -52,13 +46,6 @@ public class BeanBag extends GameObject implements PlayerObjects{
 		// moves up by 7 when shot out of the canon
 		x -= xDir / 100;
 		y -= yDir / 100;
-		
-		if(Collisions.Collision(this, game.eo)){
-			
-			System.out.println("COLLISION BETWEEN BEAN BAG AND TRUSTEE");
-			
-		}
-
 	}
 
 	public void render(Graphics g) {
