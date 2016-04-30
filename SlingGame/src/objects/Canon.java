@@ -7,11 +7,7 @@ import game.Textures;
 /**
  * Game canon movement/interactions are made here
  */
-public class Canon {
-
-	//(x,y) coordinate location of canon
-	private double x;
-	private double y;
+public class Canon extends GameObject{
 
 	private double velX = 0; // initial movement velocity in x
 	private double velY = 0; // initial movement velocity in y
@@ -25,8 +21,7 @@ public class Canon {
 	 * @param game - game panel specified
 	 */
 	public Canon(double x, double y, Textures textures) {
-		this.x = x;
-		this.y = y;
+		super(x,y);
 		
 		this.gameTextures = textures;
 	}

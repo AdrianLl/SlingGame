@@ -7,14 +7,12 @@ import game.GamePanel;
 import game.Textures;
 import loaders.Animation;
 
-public class Trustee implements GameObject {
-
-	private double x, y;
+public class Trustee extends GameObject implements EnemyObjects {
 
 	Random r = new Random();
 
-
 	Animation trusteeAnimation;
+
 	/**
 	 * Trustee constructor
 	 * 
@@ -26,14 +24,12 @@ public class Trustee implements GameObject {
 	 */
 	public Trustee(double x, double y, Textures textures) {
 
-		this.x = x;
-		this.y = y;
-		
-		trusteeAnimation = new Animation(3,textures.trustees[0],textures.trustees[1],
-				textures.trustees[2],textures.trustees[3],textures.trustees[4],
-				textures.trustees[5],textures.trustees[6],textures.trustees[7],
-				textures.trustees[8],textures.trustees[9],textures.trustees[10],
-				textures.trustees[11],textures.trustees[12],textures.trustees[13]);
+		super(x, y);
+
+		trusteeAnimation = new Animation(3, textures.trustees[0], textures.trustees[1], textures.trustees[2],
+				textures.trustees[3], textures.trustees[4], textures.trustees[5], textures.trustees[6],
+				textures.trustees[7], textures.trustees[8], textures.trustees[9], textures.trustees[10],
+				textures.trustees[11], textures.trustees[12], textures.trustees[13]);
 
 	}
 
@@ -46,9 +42,9 @@ public class Trustee implements GameObject {
 			// line below makes random spawn on y but won't be needed
 			// if the game will be just using the 3 paths
 			// y=r.nextInt(GamePanel.HEIGHT);
-			
+
 		}
-		
+
 		trusteeAnimation.runAnimation();
 
 	}

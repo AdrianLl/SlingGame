@@ -4,7 +4,8 @@ import java.awt.Graphics;
 import java.util.LinkedList;
 import java.util.Random;
 
-import objects.GameObject;
+import objects.EnemyObjects;
+import objects.PlayerObjects;
 import objects.Trustee;
 
 /**
@@ -15,8 +16,11 @@ import objects.Trustee;
 public class Controller {
 
 	//Linked list of game objects (trustee, beanbag, etc)
-	private LinkedList<GameObject> o = new LinkedList<GameObject>();
-	GameObject obj;
+	private LinkedList<PlayerObjects> po = new LinkedList<PlayerObjects>();
+	private LinkedList<EnemyObjects> eo = new LinkedList<EnemyObjects>();
+	
+	PlayerObjects playerObj;
+	EnemyObjects enemyObj;
 
 	Random r = new Random(); //random num generator for random spawning
 
@@ -29,33 +33,48 @@ public class Controller {
 	}
 
 	public void tick() {
-		for (int i = 0; i < o.size(); i++) {
-			obj = o.get(i);
-			obj.tick();
+		//Player Class
+		for (int i = 0; i < po.size(); i++) {
+			playerObj = po.get(i);
+			playerObj.tick();
+		}
+		
+		//Enemy Class
+		for (int i = 0; i < eo.size(); i++) {
+			enemyObj = eo.get(i);
+			enemyObj.tick();
 		}
 	}
 
 	public void render(Graphics g) {
-		for (int i = 0; i < o.size(); i++) {
-			obj = o.get(i);
-			obj.render(g);
+		//Player Class
+		for (int i = 0; i < po.size(); i++) {
+			playerObj = po.get(i);
+			playerObj.render(g);
+		}
+		//Enemy Class
+		for (int i = 0; i < eo.size(); i++) {
+			enemyObj = eo.get(i);
+			enemyObj.render(g);
 		}
 	}
 	
-	/**
-	 * Add specified object to the game panel
-	 * @param block that is going to be added
-	 */
-	public void addObject(GameObject block) {
-		o.add(block);
+	// Player Constructors/Destructor
+	public void addObject(PlayerObjects block) {
+		po.add(block);
 	}
-	
-	/**
-	 * Removes specified object from the game panel
-	 * @param block that is going to be removed
-	 */
 
-	public void removeObject(GameObject block) {
-		o.remove(block);
+	public void removeObject(PlayerObjects block) {
+		po.remove(block);
 	}
+
+	// Enemy Constructors/Destructor
+	public void addObject(EnemyObjects block) {
+		eo.add(block);
+	}
+
+	public void removeObject(EnemyObjects block) {
+		eo.remove(block);
+	}
+
 }
