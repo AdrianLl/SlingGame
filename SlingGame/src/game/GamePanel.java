@@ -64,12 +64,7 @@ public class GamePanel extends Canvas implements Runnable {
 	public LinkedList<PlayerObjects> po;
 	public LinkedList<EnemyObjects> eo;
 	
-	private enum STATE{
-		MENU,
-		GAME
-	};
-	
-	private STATE State = STATE.MENU;  
+	private STATE state  = STATE.MENU;
 
 	/**
 	 * init function to initialize game elements such as images and key
@@ -184,7 +179,7 @@ public class GamePanel extends Canvas implements Runnable {
 
 	// tick method for game objects
 	private void tick() {
-		if(State == STATE.GAME){
+		if(state == STATE.PLAY){
 		canon.tick();
 		c.tick();
 		}
@@ -203,7 +198,7 @@ public class GamePanel extends Canvas implements Runnable {
 		Graphics g = bs.getDrawGraphics();
 		
 		// g.drawImage(test, 0, 0, null);
-		if(State == STATE.GAME){
+		if(state == STATE.PLAY){
 			/***** IMAGES RENDERED HERE ************/
 			g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 			g.setColor(Color.WHITE); // whitespace color
@@ -213,7 +208,7 @@ public class GamePanel extends Canvas implements Runnable {
 			
 			canon.render(g);
 			c.render(g);
-		} else if(State == STATE.MENU){
+		} else if(state == STATE.MENU){
 			menu.render(g);
 		}
 			/***** IMAGES RENDERED HERE ************/
@@ -232,7 +227,7 @@ public class GamePanel extends Canvas implements Runnable {
 		/**
 		 * below is the behavior for the directional keys.
 		 */
-		if(State == STATE.GAME){
+		if(state == STATE.PLAY){
 			if (key == KeyEvent.VK_RIGHT) {
 				canon.setVelX(moveSpeed);
 			} else if (key == KeyEvent.VK_LEFT) {
@@ -267,8 +262,50 @@ public class GamePanel extends Canvas implements Runnable {
 
 	public void mousePressed(MouseEvent e) {
 		// test
-		System.out.println("XLOC: " + e.getX() + " YLOC: " + e.getY());
-		c.addObject(new BeanBag(canon.getX(), canon.getY() - 40, textures, e.getX(), e.getY()));
+		if (state == STATE.PLAY) {
+			System.out.println("XLOC: " + e.getX() + " YLOC: " + e.getY());
+			c.addObject(new BeanBag(canon.getX(), canon.getY() - 40, textures, e.getX(), e.getY()));
+		}
+		/*
+		public Rectangle playButton = new Rectangle(GamePanel.HEIGHT/2, 395, 300, 80);
+		public Rectangle menuButton = new Rectangle(GamePanel.HEIGHT/2, 485, 300, 80);
+		public Rectangle helpButton = new Rectangle(GamePanel.HEIGHT/2, 585, 300, 80);
+		public Rectangle quitButton = new Rectangle(GamePanel.HEIGHT/2, 685, 300, 80);
+		*/
+		int mx = e.getX();
+		int my = e.getY();
+		
+		//PLAY
+		if (mx >= GamePanel.WIDTH/2-150 && mx <= (GamePanel.WIDTH/2-150)+300) {
+			if (my >= 395&& my <=  475) {
+				// Pressed play button
+				System.out.println("PLAY PRESSED");
+				this.state = STATE.PLAY;
+			}
+		}
+		//MENU
+		if (mx >= GamePanel.WIDTH/2-150 && mx <= (GamePanel.WIDTH/2-150)+300) {
+			if (my >= 490&& my <=  570) {
+				System.out.println("MENU PRESSED");
+				this.state = STATE.MENU;
+			}
+		}
+		//HELP
+		if (mx >= GamePanel.WIDTH/2-150 && mx <= (GamePanel.WIDTH/2-150)+300) {
+			if (my >= 585&& my <=  665) {
+				// Pressed help button
+				System.out.println("HELP PRESSED");
+				this.state = STATE.HELP;
+			}
+		}
+		//QUIT
+		if (mx >= GamePanel.WIDTH/2-150 && mx <= (GamePanel.WIDTH/2-150)+300) {
+			if (my >= 680&& my <=  760) {
+				// Pressed quit button
+				System.out.println("QUIT PRESSED");
+				System.exit(1);
+			}
+		}
 	}
 
 	/**

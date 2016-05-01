@@ -33,16 +33,6 @@ public class MouseInput implements MouseListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		int mx = e.getX();
-		int my = e.getY();
-		
-		//Play button
-		if(mx >= GamePanel.WIDTH/2 + 100 && mx <= GamePanel.WIDTH/2 + 200){
-			if(my>=300 && my<=120){
-				//Pressed play button
-				//GamePanel.State = GamePanel.STATE.GAME;
-			}
-		}
 			game.mousePressed(e);	
 	}
 
