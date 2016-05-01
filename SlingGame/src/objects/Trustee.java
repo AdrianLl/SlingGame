@@ -79,6 +79,6 @@ public class Trustee extends GameObject implements EnemyObjects {
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle((int) x, (int) y, 90, 90);
+		return new Rectangle((int) x, (int) y, 30, 60);
 	}
 }
