@@ -67,10 +67,13 @@ public class Controller {
 	// Player Constructors/Destructor
 	public void addObject(PlayerObjects block) {
 		po.add(block);
+		AudioPlayer.getSound("bbSound").play();
+		
 	}
 
 	public void removeObject(PlayerObjects block) {
 		po.remove(block);
+		AudioPlayer.getSound("trSound").play();
 	}
 
 	// Enemy Constructors/Destructor

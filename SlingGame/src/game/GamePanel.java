@@ -72,6 +72,9 @@ public class GamePanel extends Canvas implements Runnable {
 	 */
 	public void init() {
 		requestFocus(); // makes the game panel the main focus when opened
+		AudioPlayer.load();
+		
+		AudioPlayer.getMusic("bgMusic").loop();
 
 		BufferedImageLoader loader = new BufferedImageLoader();
 		// image loader initiated
@@ -266,44 +269,41 @@ public class GamePanel extends Canvas implements Runnable {
 			System.out.println("XLOC: " + e.getX() + " YLOC: " + e.getY());
 			c.addObject(new BeanBag(canon.getX(), canon.getY() - 40, textures, e.getX(), e.getY()));
 		}
-		/*
-		public Rectangle playButton = new Rectangle(GamePanel.HEIGHT/2, 395, 300, 80);
-		public Rectangle menuButton = new Rectangle(GamePanel.HEIGHT/2, 485, 300, 80);
-		public Rectangle helpButton = new Rectangle(GamePanel.HEIGHT/2, 585, 300, 80);
-		public Rectangle quitButton = new Rectangle(GamePanel.HEIGHT/2, 685, 300, 80);
-		*/
-		int mx = e.getX();
-		int my = e.getY();
 		
-		//PLAY
-		if (mx >= GamePanel.WIDTH/2-150 && mx <= (GamePanel.WIDTH/2-150)+300) {
-			if (my >= 395&& my <=  475) {
-				// Pressed play button
-				System.out.println("PLAY PRESSED");
-				this.state = STATE.PLAY;
+		if (state == STATE.MENU) {
+
+			int mx = e.getX();
+			int my = e.getY();
+
+			if (mx >= GamePanel.WIDTH / 2 - 150 && mx <= (GamePanel.WIDTH / 2 - 150) + 300) {
+				if (my >= 395 && my <= 475) {
+					// Pressed play button
+					System.out.println("PLAY PRESSED");
+					this.state = STATE.PLAY;
+				}
 			}
-		}
-		//MENU
-		if (mx >= GamePanel.WIDTH/2-150 && mx <= (GamePanel.WIDTH/2-150)+300) {
-			if (my >= 490&& my <=  570) {
-				System.out.println("MENU PRESSED");
-				this.state = STATE.MENU;
+			// MENU
+			if (mx >= GamePanel.WIDTH / 2 - 150 && mx <= (GamePanel.WIDTH / 2 - 150) + 300) {
+				if (my >= 490 && my <= 570) {
+					System.out.println("MENU PRESSED");
+					this.state = STATE.MENU;
+				}
 			}
-		}
-		//HELP
-		if (mx >= GamePanel.WIDTH/2-150 && mx <= (GamePanel.WIDTH/2-150)+300) {
-			if (my >= 585&& my <=  665) {
-				// Pressed help button
-				System.out.println("HELP PRESSED");
-				this.state = STATE.HELP;
+			// HELP
+			if (mx >= GamePanel.WIDTH / 2 - 150 && mx <= (GamePanel.WIDTH / 2 - 150) + 300) {
+				if (my >= 585 && my <= 665) {
+					// Pressed help button
+					System.out.println("HELP PRESSED");
+					this.state = STATE.MENU;
+				}
 			}
-		}
-		//QUIT
-		if (mx >= GamePanel.WIDTH/2-150 && mx <= (GamePanel.WIDTH/2-150)+300) {
-			if (my >= 680&& my <=  760) {
-				// Pressed quit button
-				System.out.println("QUIT PRESSED");
-				System.exit(1);
+			// QUIT
+			if (mx >= GamePanel.WIDTH / 2 - 150 && mx <= (GamePanel.WIDTH / 2 - 150) + 300) {
+				if (my >= 680 && my <= 760) {
+					// Pressed quit button
+					System.out.println("QUIT PRESSED");
+					System.exit(1);
+				}
 			}
 		}
 	}
