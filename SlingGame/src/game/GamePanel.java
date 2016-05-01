@@ -59,16 +59,22 @@ public class GamePanel extends Canvas implements Runnable {
 	private Canon canon;
 	private Textures textures;
 	private Controller c;
+	private Menu menu;
 
 	public LinkedList<PlayerObjects> po;
 	public LinkedList<EnemyObjects> eo;
+	
+	private enum STATE{
+		MENU,
+		GAME
+	};
+	
+	private STATE State = STATE.MENU;  
 
 	/**
 	 * init function to initialize game elements such as images and key
 	 * listeners for now
 	 */
-	
-	
 	public void init() {
 		requestFocus(); // makes the game panel the main focus when opened
 
@@ -87,12 +93,13 @@ public class GamePanel extends Canvas implements Runnable {
 
 		crosshair(); // loads the crosshair cursor
 
-		addKeyListener(new KeyInput(this)); // key listener initialized
-		addMouseListener(new MouseInput(this));
+		this.addKeyListener(new KeyInput(this)); // key listener initialized
+		this.addMouseListener(new MouseInput(this));
 
 		textures = new Textures(this);
 		canon = new Canon(500, 520, textures); // canon initialized
 		c = new Controller(textures, this); // game controller initialized
+		menu = new Menu();
 
 		po = c.getPlayerObjects();
 		eo = c.getEnemyObjects();
@@ -177,9 +184,10 @@ public class GamePanel extends Canvas implements Runnable {
 
 	// tick method for game objects
 	private void tick() {
+		if(State == STATE.GAME){
 		canon.tick();
 		c.tick();
-
+		}
 	}
 
 	// render method to draw the images on the canvas
@@ -193,20 +201,22 @@ public class GamePanel extends Canvas implements Runnable {
 		}
 
 		Graphics g = bs.getDrawGraphics();
-
-		/***** IMAGES RENDERED HERE ************/
-		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-		g.setColor(Color.WHITE); // whitespace color
-		g.fillRect(0, 0, 1500, 1500); // whitepsace for png to show the school
-
-		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
-		// draw background
-
+		
 		// g.drawImage(test, 0, 0, null);
-
-		canon.render(g);
-		c.render(g);
-		/***** IMAGES RENDERED HERE ************/
+		if(State == STATE.GAME){
+			/***** IMAGES RENDERED HERE ************/
+			g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+			g.setColor(Color.WHITE); // whitespace color
+			g.fillRect(0, 0, 1500, 1500); // whitepsace for png to show the school
+			// draw background
+			g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+			
+			canon.render(g);
+			c.render(g);
+		} else if(State == STATE.MENU){
+			menu.render(g);
+		}
+			/***** IMAGES RENDERED HERE ************/
 		g.dispose(); // clean up graphic resources in the game
 		bs.show(); // display (buffer strategy)
 	}
@@ -222,14 +232,16 @@ public class GamePanel extends Canvas implements Runnable {
 		/**
 		 * below is the behavior for the directional keys.
 		 */
-		if (key == KeyEvent.VK_RIGHT) {
-			canon.setVelX(moveSpeed);
-		} else if (key == KeyEvent.VK_LEFT) {
-			canon.setVelX(-moveSpeed);
-		} else if (key == KeyEvent.VK_DOWN) {
-			canon.setVelY(moveSpeed);
-		} else if (key == KeyEvent.VK_UP) {
-			canon.setVelY(-moveSpeed);
+		if(State == STATE.GAME){
+			if (key == KeyEvent.VK_RIGHT) {
+				canon.setVelX(moveSpeed);
+			} else if (key == KeyEvent.VK_LEFT) {
+				canon.setVelX(-moveSpeed);
+			} else if (key == KeyEvent.VK_DOWN) {
+				canon.setVelY(moveSpeed);
+			} else if (key == KeyEvent.VK_UP) {
+				canon.setVelY(-moveSpeed);
+			}
 		}
 	}
 
