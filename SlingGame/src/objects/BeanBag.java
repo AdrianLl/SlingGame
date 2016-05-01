@@ -42,14 +42,18 @@ public class BeanBag extends GameObject implements PlayerObjects{
 	 */
 
 	public void tick() {
-		if(xDir>=539){
-			x += xDir / 100;
-			y -= yDir / 100;
-			
-		}else{
-			x -= yDir / 100;
+
+		if (xDir >= 539) {
+			x += (yDir - 150) / 100;
+			y -= (1024 - xDir) / 100;
+			System.out.println(x + "," + y);
+
+		} else {
+			x -= (yDir - 150) / 100;
 			y -= xDir / 100;
+			System.out.println(x + "," + y);
 		}
+
 	}
 
 	public void render(Graphics g) {
