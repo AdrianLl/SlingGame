@@ -183,9 +183,9 @@ public class GamePanel extends Canvas implements Runnable {
 
 	// tick method for game objects
 	private void tick() {
-		if(state == STATE.PLAY){
-		canon.tick();
-		c.tick();
+		if (state == STATE.PLAY) {
+			canon.tick();
+			c.tick();
 		}
 	}
 
@@ -200,22 +200,21 @@ public class GamePanel extends Canvas implements Runnable {
 		}
 
 		Graphics g = bs.getDrawGraphics();
-		
-		// g.drawImage(test, 0, 0, null);
-		if(state == STATE.PLAY){
-			/***** IMAGES RENDERED HERE ************/
-			g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-			g.setColor(Color.WHITE); // whitespace color
-			g.fillRect(0, 0, 1500, 1500); // whitepsace for png to show the school
+
+		/***** IMAGES RENDERED HERE ************/
+		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+		g.setColor(Color.WHITE); // whitespace color
+		g.fillRect(0, 0, 1500, 1500); // whitepsace for png to show the
+		if (state == STATE.PLAY) { // school
 			// draw background
 			g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
-			
+
 			canon.render(g);
 			c.render(g);
-		} else if(state == STATE.MENU){
+		} else if (state == STATE.MENU) {
 			menu.render(g);
 		}
-			/***** IMAGES RENDERED HERE ************/
+		/***** IMAGES RENDERED HERE ************/
 		g.dispose(); // clean up graphic resources in the game
 		bs.show(); // display (buffer strategy)
 	}
