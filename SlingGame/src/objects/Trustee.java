@@ -33,10 +33,8 @@ public class Trustee extends GameObject implements EnemyObjects {
 
 		super(x, y);
 
-		trusteeAnimation = new Animation(3, textures.trustees[0], textures.trustees[1], textures.trustees[2],
-				textures.trustees[3], textures.trustees[4], textures.trustees[5], textures.trustees[6],
-				textures.trustees[7], textures.trustees[8], textures.trustees[9], textures.trustees[10],
-				textures.trustees[11], textures.trustees[12], textures.trustees[13]);
+		trusteeAnimation = new Animation(6, textures.trustees[0], textures.trustees[1], textures.trustees[2],
+				textures.trustees[3], textures.trustees[4]);
 
 		this.c = c;
 		this.game = game;

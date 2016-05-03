@@ -48,6 +48,18 @@ public class Animation {
 		this.img14 = img14;
 		frames = 14;
 	}
+	
+	public Animation(int speed, BufferedImage img1, BufferedImage img2, BufferedImage img3, BufferedImage img4,
+			BufferedImage img5) {
+		this.speed = speed;
+		this.img1 = img1;
+		this.img2 = img2;
+		this.img3 = img3;
+		this.img4 = img4;
+		this.img5 = img5;
+
+		frames = 5;
+	}
 
 	public void runAnimation() {
 		index++;
