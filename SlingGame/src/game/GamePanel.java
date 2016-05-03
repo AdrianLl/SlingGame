@@ -272,9 +272,16 @@ public class GamePanel extends Canvas implements Runnable {
 		
 		if (state == STATE.MENU) {
 
+			/*
+			 * Gets the x and y-coordinate of the cursor on the starting screen.
+			 */
 			int mx = e.getX();
 			int my = e.getY();
 
+			/*
+			 * Designates the area on the starting screen where the "PLAY" button is and changes the state to play 
+			 * when "PLAY" is clicked.
+			 */
 			if (mx >= GamePanel.WIDTH / 2 - 150 && mx <= (GamePanel.WIDTH / 2 - 150) + 300) {
 				if (my >= 395 && my <= 475) {
 					// Pressed play button

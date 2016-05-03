@@ -36,11 +36,11 @@ public class BeanBag extends GameObject implements PlayerObjects{
 		this.xDir = xDir;
 		this.yDir = yDir;
 	}
+	
 	/**
 	 * The tick method dictates beanbag movement in the x or y direction.
 	 * Depending on the movement that is added per tick it will also determine movement speed
 	 */
-
 	public void tick() {
 
 		if (xDir >= 539) {

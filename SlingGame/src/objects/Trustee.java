@@ -50,6 +50,9 @@ public class Trustee extends GameObject implements EnemyObjects {
 
 		}
 
+		/*
+		 * When the beanbag collides with the trustee, it disappears.
+		 */
 		for (int i = 0; i < game.po.size(); i++) {
 
 			PlayerObjects tempPlayer = game.po.get(i);
