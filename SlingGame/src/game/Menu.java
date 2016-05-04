@@ -24,7 +24,7 @@ public class Menu {
 		/*
 		 * This sets the font, size and x and y-coordinates of the name of the game.
 		 */
-		Font font1 = new Font("chiller", Font.BOLD, 150);
+		Font font1 = new Font("impact", Font.BOLD, 100);
 		g.setFont(font1);
 		g.setColor(Color.black);
 		g.drawString("Trustee Down", 200, 200);
