@@ -14,11 +14,13 @@ public class Trustee extends GameObject implements EnemyObjects {
 
 	Random r = new Random();
 
-	Animation trusteeAnimation;
+	Animation trusteeAnimationF, trusteeAnimationB;
 
 	private GamePanel game;
 
 	private Controller c;
+
+	boolean forward = true; // bool for forward/backward movement
 
 	/**
 	 * Trustee constructor
@@ -33,19 +35,30 @@ public class Trustee extends GameObject implements EnemyObjects {
 
 		super(x, y);
 
-		trusteeAnimation = new Animation(6, textures.trustees[0], textures.trustees[1], textures.trustees[2],
-				textures.trustees[3], textures.trustees[4]);
+		trusteeAnimationF = new Animation(6, textures.trusteeF[0], textures.trusteeF[1], textures.trusteeF[2],
+				textures.trusteeF[3], textures.trusteeF[4]);
+		trusteeAnimationB = new Animation(6, textures.trusteeB[0], textures.trusteeB[1], textures.trusteeB[2],
+				textures.trusteeB[3], textures.trusteeB[4]);
 
 		this.c = c;
 		this.game = game;
 	}
 
 	public void tick() {
-		x += 2;
 
-		if (x > (GamePanel.WIDTH)) {
-			x = 0;
+		if (x > (GamePanel.WIDTH-20)) {
+			forward = false;
+		}
+		if (x < -60) {
+			forward = true;
+		}
 
+		if (forward) {
+			x += 2;
+		}
+
+		if (!forward) {
+			x -= 2;
 		}
 
 		/*
@@ -62,12 +75,17 @@ public class Trustee extends GameObject implements EnemyObjects {
 
 		}
 
-		trusteeAnimation.runAnimation();
+		trusteeAnimationF.runAnimation();
+		trusteeAnimationB.runAnimation();
 
 	}
 
 	public void render(Graphics g) {
-		trusteeAnimation.drawAnimation(g, x, y, 0);
+		if (forward) {
+			trusteeAnimationF.drawAnimation(g, x, y, 0);
+		} else if (!forward) {
+			trusteeAnimationB.drawAnimation(g, x, y, 0);
+		}
 
 	}
 
