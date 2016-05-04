@@ -3,9 +3,12 @@ package game;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -65,6 +68,10 @@ public class GamePanel extends Canvas implements Runnable {
 	public LinkedList<EnemyObjects> eo;
 	
 	private STATE state  = STATE.MENU;
+	
+	public Rectangle menuButton = new Rectangle(3, 735, 100, 40);
+	public Rectangle helpButton = new Rectangle(103, 735, 100, 40);
+	public Rectangle quitButton = new Rectangle(203, 735, 100, 40);
 
 	/**
 	 * init function to initialize game elements such as images and key
@@ -214,7 +221,27 @@ public class GamePanel extends Canvas implements Runnable {
 		} else if (state == STATE.MENU) {
 			menu.render(g);
 		}
+		
+		
 		/***** IMAGES RENDERED HERE ************/
+		if (state == STATE.PLAY) {
+			Graphics2D g2d = (Graphics2D) g;
+
+			/*
+			 * This sets the font, size and x and y-coordinates of the strings,
+			 * "PLAY", "MENU", "HELP" and "QUIT"
+			 */
+			Font font2 = new Font("cooper black", Font.BOLD, 18);
+			g.setFont(font2);
+			g.drawString("MENU", menuButton.x + 20, menuButton.y + 25);
+			g2d.draw(menuButton);
+			g.drawString("HELP", helpButton.x + 20, helpButton.y + 25);
+			g2d.draw(helpButton);
+			g.drawString("QUIT", quitButton.x + 20, quitButton.y + 25);
+			g2d.draw(quitButton);
+		}
+		
+		
 		g.dispose(); // clean up graphic resources in the game
 		bs.show(); // display (buffer strategy)
 	}
@@ -266,6 +293,41 @@ public class GamePanel extends Canvas implements Runnable {
 	public void mousePressed(MouseEvent e) {
 		// test
 		if (state == STATE.PLAY) {
+
+			/*
+			 * Gets the x and y-coordinate of the cursor on the starting screen.
+			 */
+			int mx = e.getX();
+			int my = e.getY();
+
+			/*
+			 * Designates the area on the starting screen where the "PLAY"
+			 * button is and changes the state to play when "PLAY" is clicked.
+			 */
+			// MENU
+			if (mx >= 3 && mx <= 103 ){
+				if (my >= 735 && my <= 775) {
+					System.out.println("MENU PRESSED");
+					this.state = STATE.MENU;
+				}
+			}
+			// HELP
+			if (mx >= 103 && mx <= 203) {
+				if (my >= 735 && my <= 775) {
+					// Pressed help button
+					System.out.println("HELP PRESSED");
+					this.state = STATE.MENU;
+				}
+			}
+			// QUIT
+			if (mx >= 203 && mx <= 303) {
+				if (my >= 735 && my <= 775) {
+					// Pressed quit button
+					System.out.println("QUIT PRESSED");
+					System.exit(1);
+				}
+			}
+
 			System.out.println("XLOC: " + e.getX() + " YLOC: " + e.getY());
 			c.addObject(new BeanBag(canon.getX(), canon.getY() - 40, textures, e.getX(), e.getY()));
 		}
