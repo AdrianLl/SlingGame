@@ -17,6 +17,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.LinkedList;
 
+import javax.sound.sampled.Clip;
+
 import loaders.BufferedImageLoader;
 import loaders.KeyInput;
 import loaders.MouseInput;
@@ -74,7 +76,7 @@ public class GamePanel extends Canvas implements Runnable {
 	public Rectangle helpButton = new Rectangle(103, 735, 100, 40);
 	public Rectangle quitButton = new Rectangle(203, 735, 100, 40);
 	
-	
+	private AudioHandler audio;
 	/**
 	 * init function to initialize game elements such as images and key
 	 * listeners for now
@@ -85,7 +87,15 @@ public class GamePanel extends Canvas implements Runnable {
 		//TODO:audio uncomment
 		//AudioPlayer.load();
 		//AudioPlayer.getMusic("bgMusic").loop();
-
+		
+		audio = AudioHandler.getInstance();
+		audio.load("background-sound.wav", "BG");
+		audio.load("beanbag-sound.wav", "bag");
+		audio.load("trustee-sound.wav", "trustee");
+		audio.adjustVolume("BG",-10);
+		audio.play("BG", Clip.LOOP_CONTINUOUSLY);
+		
+		
 		BufferedImageLoader loader = new BufferedImageLoader();
 		// image loader initiated
 
