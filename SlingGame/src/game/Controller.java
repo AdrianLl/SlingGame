@@ -77,10 +77,9 @@ public class Controller {
 		//AudioPlayer.getSound("bbSound").play();
 		
 	}
-
+	//Removes bean bag from the screen
 	public void removeObject(PlayerObjects block) {
 		po.remove(block);
-		score += 10;
 		//TODO uncomment for audio
 		//AudioPlayer.getSound("trSound").play();
 	}
@@ -89,9 +88,10 @@ public class Controller {
 	public void addObject(EnemyObjects block) {
 		eo.add(block);
 	}
-
+	//Removes the trustees from the list
 	public void removeObject(EnemyObjects block) {
 		eo.remove(block);
+		score += 10;
 	}
 	
 	public LinkedList<PlayerObjects> getPlayerObjects(){
