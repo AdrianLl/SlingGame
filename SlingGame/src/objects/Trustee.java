@@ -99,4 +99,10 @@ public class Trustee extends GameObject implements EnemyObjects {
 	public Rectangle getBounds() {
 		return new Rectangle((int) x, (int) y, 30, 60);
 	}
+
+	@Override
+	public int getScore() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 
 import loaders.BufferedImageLoader;
-import loaders.KeyInput;
+//import loaders.KeyInput;
 import loaders.MouseInput;
 import objects.BeanBag;
 import objects.Canon;
@@ -101,7 +101,7 @@ public class GamePanel extends Canvas implements Runnable {
 
 		crosshair(); // loads the crosshair cursor
 
-		this.addKeyListener(new KeyInput(this)); // key listener initialized
+		//this.addKeyListener(new KeyInput(this)); // key listener initialized
 		this.addMouseListener(new MouseInput(this));
 
 		textures = new Textures(this);
