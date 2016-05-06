@@ -9,8 +9,8 @@ import objects.PlayerObjects;
 import objects.Trustee;
 
 /**
- * The controller class will a lot of the game movement such as:
- * trustee,spawning, bean bag spawning, movement/direction of trustees
+ * The controller class will control the game movement such as:
+ * trustee, spawning, bean bag spawning, movement/direction of trustees
  */
 
 public class Controller {
@@ -18,6 +18,8 @@ public class Controller {
 	//Linked list of game objects (trustee, beanbag, etc)
 	private LinkedList<PlayerObjects> po = new LinkedList<PlayerObjects>();
 	private LinkedList<EnemyObjects> eo = new LinkedList<EnemyObjects>();
+	//ScoreBoard Counter
+	private static int score = 0;
 	
 	PlayerObjects playerObj;
 	EnemyObjects enemyObj;
@@ -52,6 +54,9 @@ public class Controller {
 	}
 
 	public void render(Graphics g) {
+		//Draws the score +10 if it hits a trustee
+		g.drawString("Score " + score, 75 , 675);
+		
 		//Player Class
 		for (int i = 0; i < po.size(); i++) {
 			playerObj = po.get(i);
@@ -62,6 +67,7 @@ public class Controller {
 			enemyObj = eo.get(i);
 			enemyObj.render(g);
 		}
+		
 	}
 	
 	// Player Constructors/Destructor
@@ -74,6 +80,7 @@ public class Controller {
 
 	public void removeObject(PlayerObjects block) {
 		po.remove(block);
+		score += 10;
 		//TODO uncomment for audio
 		//AudioPlayer.getSound("trSound").play();
 	}

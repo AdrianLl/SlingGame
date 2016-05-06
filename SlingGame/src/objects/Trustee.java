@@ -17,7 +17,6 @@ public class Trustee extends GameObject implements EnemyObjects {
 	Animation trusteeAnimationF, trusteeAnimationB;
 
 	private GamePanel game;
-
 	private Controller c;
 
 	boolean forward = true; // bool for forward/backward movement
@@ -36,9 +35,9 @@ public class Trustee extends GameObject implements EnemyObjects {
 		super(x, y);
 
 		trusteeAnimationF = new Animation(6, textures.trusteeF[0], textures.trusteeF[1], textures.trusteeF[2],
-				textures.trusteeF[3], textures.trusteeF[4]);
+							textures.trusteeF[3], textures.trusteeF[4]);
 		trusteeAnimationB = new Animation(6, textures.trusteeB[0], textures.trusteeB[1], textures.trusteeB[2],
-				textures.trusteeB[3], textures.trusteeB[4]);
+							textures.trusteeB[3], textures.trusteeB[4]);
 
 		this.c = c;
 		this.game = game;
@@ -80,13 +79,13 @@ public class Trustee extends GameObject implements EnemyObjects {
 
 	}
 
+
 	public void render(Graphics g) {
 		if (forward) {
 			trusteeAnimationF.drawAnimation(g, x, y, 0);
 		} else if (!forward) {
 			trusteeAnimationB.drawAnimation(g, x, y, 0);
 		}
-
 	}
 
 	public double getX() {

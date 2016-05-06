@@ -13,4 +13,5 @@ public interface EnemyObjects{
 	
 	public double getX();
 	public double getY();
+	public int getScore();
 }

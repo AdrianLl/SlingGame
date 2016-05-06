@@ -25,6 +25,7 @@ import objects.Canon;
 import objects.EnemyObjects;
 import objects.PlayerObjects;
 
+
 /**
  * Game canvas will have most of the game mechanics running through here.
  * 
@@ -72,7 +73,8 @@ public class GamePanel extends Canvas implements Runnable {
 	public Rectangle menuButton = new Rectangle(3, 735, 100, 40);
 	public Rectangle helpButton = new Rectangle(103, 735, 100, 40);
 	public Rectangle quitButton = new Rectangle(203, 735, 100, 40);
-
+	
+	
 	/**
 	 * init function to initialize game elements such as images and key
 	 * listeners for now
@@ -207,25 +209,20 @@ public class GamePanel extends Canvas implements Runnable {
 		}
 
 		Graphics g = bs.getDrawGraphics();
-
+		
 		/***** IMAGES RENDERED HERE ************/
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 		g.setColor(Color.WHITE); // whitespace color
-		g.fillRect(0, 0, 1500, 1500); // whitepsace for png to show the
+		g.fillRect(0, 0, 1500, 1500); // whitespace for png to show the
+		
 		if (state == STATE.PLAY) { // school
+			
+			Graphics2D g2d = (Graphics2D) g;
 			// draw background
 			g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
-
+			
 			canon.render(g);
 			c.render(g);
-		} else if (state == STATE.MENU) {
-			menu.render(g);
-		}
-		
-		
-		/***** IMAGES RENDERED HERE ************/
-		if (state == STATE.PLAY) {
-			Graphics2D g2d = (Graphics2D) g;
 
 			/*
 			 * This sets the font, size and x and y-coordinates of the strings,
@@ -239,8 +236,15 @@ public class GamePanel extends Canvas implements Runnable {
 			g2d.draw(helpButton);
 			g.drawString("QUIT", quitButton.x + 20, quitButton.y + 25);
 			g2d.draw(quitButton);
+		} else if (state == STATE.MENU) {
+			menu.render(g);
 		}
 		
+		/***** IMAGES RENDERED HERE ************/
+		//Moved into the state if statement
+		//if (state == STATE.PLAY) {
+	
+		//}
 		
 		g.dispose(); // clean up graphic resources in the game
 		bs.show(); // display (buffer strategy)
@@ -251,12 +255,13 @@ public class GamePanel extends Canvas implements Runnable {
 	 * 
 	 * this will affect the up,down,left,right keys
 	 */
+	
+	/* Commented out cannon movement from keyboard
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode(); // determines the key pressed
 		int moveSpeed = 10; // move speed when key pressed
 		/**
-		 * below is the behavior for the directional keys.
-		 */
+		 * below is the behavior for the directional keys. 
 		if(state == STATE.PLAY){
 			if (key == KeyEvent.VK_RIGHT) {
 				canon.setVelX(moveSpeed);
@@ -269,7 +274,8 @@ public class GamePanel extends Canvas implements Runnable {
 			}
 		}
 	}
-
+	/*
+	
 	/**
 	 * behavior on key release, might need to be modified depending on game
 	 * mechanics. at the moment stops movement on the cursor when key released

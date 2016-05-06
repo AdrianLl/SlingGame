@@ -37,12 +37,12 @@ public class Canon extends GameObject{
 	public static final int HEIGHT = 768;*/
 		if(x <= 0 )
 			x=0;
-		if(x>= 1024-missingBound)
-			x=1024-missingBound;
-		if(y<=0)
-			y=0;
-		if(y >= 768-missingBound)
-			y=768-missingBound;
+		if(x>= 1024 - missingBound)
+			x=1024 - missingBound;
+		if(y <= 0)
+			y = 0;
+		if(y >= 768 - missingBound)
+			y = 768 - missingBound;
 		
 	}
 	
