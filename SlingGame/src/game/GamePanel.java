@@ -87,15 +87,16 @@ public class GamePanel extends Canvas implements Runnable {
 		//TODO:audio uncomment
 		//AudioPlayer.load();
 		//AudioPlayer.getMusic("bgMusic").loop();
+		
 		/*
 		audio = AudioHandler.getInstance();
 		audio.load("background-sound.wav", "BG");
 		audio.load("beanbag-sound.wav", "bag");
 		audio.load("trustee-sound.wav", "trustee");
-		audio.adjustVolume("BG",-10);
+		//audio.adjustVolume("BG",-10);
 		audio.play("BG", Clip.LOOP_CONTINUOUSLY);
-		*/
 		
+		*/
 		BufferedImageLoader loader = new BufferedImageLoader();
 		// image loader initiated
 

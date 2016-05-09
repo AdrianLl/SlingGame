@@ -4,9 +4,12 @@ import java.awt.Graphics;
 import java.util.LinkedList;
 import java.util.Random;
 
+import javax.sound.sampled.Clip;
+
 import objects.EnemyObjects;
 import objects.PlayerObjects;
 import objects.Trustee;
+
 
 /**
  * The controller class will control the game movement such as:
@@ -29,6 +32,10 @@ public class Controller {
 	Textures textures;
 	GamePanel game;
 	
+	//audio
+	private AudioHandler audio;
+
+	
 	public Controller(Textures textures, GamePanel game) {
 		//for now just randomly spawning in the x direction on the three paths
 		this.textures=textures;
@@ -37,6 +44,14 @@ public class Controller {
 		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 325, textures,this,game));
 		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 458, textures,this,game));
 
+		
+		audio = AudioHandler.getInstance();
+		audio.load("background-sound.wav", "BG");
+		audio.load("beanbag-sound.wav", "bag");
+		audio.load("trustee-sound.wav", "trustee");
+		audio.adjustVolume("BG", -10);
+		audio.play("BG", Clip.LOOP_CONTINUOUSLY);
+		
 	}
 
 	public void tick() {
@@ -75,6 +90,7 @@ public class Controller {
 		po.add(block);
 		//TODO uncomment for audio
 		//AudioPlayer.getSound("bbSound").play();
+		
 		
 	}
 	//Removes bean bag from the screen

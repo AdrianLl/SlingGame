@@ -1,3 +1,5 @@
+package game;
+
 import java.net.URL;
 import java.util.HashMap;
 
@@ -26,7 +28,9 @@ public class AudioHandler {
 		URL resource = AudioHandler.class.getClassLoader().getResource(resourcePath);
 		AudioInputStream input = null;
 		try{
+			
 			input = AudioSystem.getAudioInputStream(resource);
+			
 		} catch(Exception e){
 			e.printStackTrace();
 		}
