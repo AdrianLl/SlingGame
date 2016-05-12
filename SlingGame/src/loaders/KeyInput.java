@@ -1,4 +1,4 @@
-/*
+
 package loaders;
 
 import java.awt.event.KeyAdapter;
@@ -11,7 +11,6 @@ import game.GamePanel;
  * will be used for more complex controls once we get launching mechanism in
  * place.
  */
-/*
 public class KeyInput extends KeyAdapter {
 
 	GamePanel game;
@@ -23,7 +22,6 @@ public class KeyInput extends KeyAdapter {
 
 	// key event for pressing a key
 	public void keyPressed(KeyEvent e) {
-		game.keyPressed(e);
 	}
 
 	// key event for key released
@@ -31,4 +29,3 @@ public class KeyInput extends KeyAdapter {
 		game.keyReleased(e);
 	}
 }
-*/
