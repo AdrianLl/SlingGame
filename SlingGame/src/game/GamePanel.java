@@ -17,7 +17,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.LinkedList;
 
-import javax.sound.sampled.Clip;
 
 import loaders.BufferedImageLoader;
 //import loaders.KeyInput;
@@ -76,7 +75,6 @@ public class GamePanel extends Canvas implements Runnable {
 	public Rectangle helpButton = new Rectangle(103, 735, 100, 40);
 	public Rectangle quitButton = new Rectangle(203, 735, 100, 40);
 	
-	private AudioHandler audio;
 	/**
 	 * init function to initialize game elements such as images and key
 	 * listeners for now
@@ -116,7 +114,7 @@ public class GamePanel extends Canvas implements Runnable {
 		this.addMouseListener(new MouseInput(this));
 
 		textures = new Textures(this);
-		canon = new Canon(500, 520, textures); // canon initialized
+		canon = new Canon(512, 675, textures); // canon initialized
 		c = new Controller(textures, this); // game controller initialized
 		menu = new Menu();
 
@@ -346,7 +344,7 @@ public class GamePanel extends Canvas implements Runnable {
 			}
 
 			System.out.println("XLOC: " + e.getX() + " YLOC: " + e.getY());
-			c.addObject(new BeanBag(canon.getX(), canon.getY() - 40, textures, e.getX(), e.getY()));
+			c.addObject(new BeanBag(canon.getX()+9, canon.getY() - 20, textures, e.getX(), e.getY()));
 		}
 		
 		if (state == STATE.MENU) {

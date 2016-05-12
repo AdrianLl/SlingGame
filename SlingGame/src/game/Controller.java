@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.util.LinkedList;
 import java.util.Random;
 
-import javax.sound.sampled.Clip;
 
 import objects.EnemyObjects;
 import objects.PlayerObjects;
@@ -33,25 +32,27 @@ public class Controller {
 	GamePanel game;
 	
 	//audio
-	private AudioHandler audio;
 
 	
 	public Controller(Textures textures, GamePanel game) {
 		//for now just randomly spawning in the x direction on the three paths
 		this.textures=textures;
 		this.game=game;
-		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 193, textures,this,game));
-		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 325, textures,this,game));
-		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 458, textures,this,game));
-
+		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 206, textures,this,game));
+		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 338, textures,this,game));
+		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 473, textures,this,game));
 		
-		audio = AudioHandler.getInstance();
-		audio.load("background-sound.wav", "BG");
-		audio.load("beanbag-sound.wav", "bag");
-		audio.load("trustee-sound.wav", "trustee");
-		audio.adjustVolume("BG", -10);
-		audio.play("BG", Clip.LOOP_CONTINUOUSLY);
+		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 206, textures,this,game));
+		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 338, textures,this,game));
+		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 473, textures,this,game));
 		
+		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 206, textures,this,game));
+		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 338, textures,this,game));
+		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 473, textures,this,game));
+		
+		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 206, textures,this,game));
+		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 338, textures,this,game));
+		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 473, textures,this,game));
 	}
 
 	public void tick() {

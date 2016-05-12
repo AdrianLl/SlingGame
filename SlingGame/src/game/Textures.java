@@ -13,8 +13,8 @@ public class Textures {
 
 	private SpriteSheet ss;
 
-	public BufferedImage[] trusteeF = new BufferedImage[5]; //walk forward
-	public BufferedImage[] trusteeB = new BufferedImage[5]; //walk backward
+	public BufferedImage[] trusteeF = new BufferedImage[14]; // walk forward
+	public BufferedImage[] trusteeB = new BufferedImage[14]; // walk backward
 	public BufferedImage canon, beanbag;
 
 	public Textures(GamePanel game) {
@@ -27,20 +27,15 @@ public class Textures {
 	 */
 	private void getTextures() {
 		// col,row,size
-		canon = ss.grabImage(1, 1, 90, 90);
-		beanbag = ss.grabImage(2, 1, 90, 90);
+		canon = ss.grabImage(6, 19, 18, 80);
+		beanbag = ss.grabImage(1, 19, 20, 20);
 
-		trusteeF[0] = ss.grabImage(1, 4, 90, 90);
-		trusteeF[1] = ss.grabImage(2, 4, 90, 90);
-		trusteeF[2] = ss.grabImage(3, 4, 90, 90);
-		trusteeF[3] = ss.grabImage(4, 4, 90, 90);
-		trusteeF[4] = ss.grabImage(5, 4, 90, 90);
-		
-		trusteeB[0] = ss.grabImage(1, 5, 90, 90);
-		trusteeB[1] = ss.grabImage(2, 5, 90, 90);
-		trusteeB[2] = ss.grabImage(3, 5, 90, 90);
-		trusteeB[3] = ss.grabImage(4, 5, 90, 90);
-		trusteeB[4] = ss.grabImage(5, 5, 90, 90);
+		for (int i = 0, j = 1; i < 14; i++, j++) {
+
+			trusteeF[i] = ss.grabImage(j, 2, 50, 70);
+			trusteeB[i] = ss.grabImage(j, 4, 50, 70);
+
+		}
 
 	}
 
