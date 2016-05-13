@@ -89,16 +89,14 @@ public class Controller {
 	// Player Constructors/Destructor
 	public void addObject(PlayerObjects block) {
 		po.add(block);
-		//TODO uncomment for audio
-		//AudioPlayer.getSound("bbSound").play();
+		AudioPlayer.getSound("bbSound").play();
 		
 		
 	}
 	//Removes bean bag from the screen
 	public void removeObject(PlayerObjects block) {
 		po.remove(block);
-		//TODO uncomment for audio
-		//AudioPlayer.getSound("trSound").play();
+		AudioPlayer.getSound("trSound").play();
 	}
 
 	// Enemy Constructors/Destructor

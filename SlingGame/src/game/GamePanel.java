@@ -82,9 +82,9 @@ public class GamePanel extends Canvas implements Runnable {
 	public void init() {
 		requestFocus(); // makes the game panel the main focus when opened
 		
-		//TODO:audio uncomment
-		//AudioPlayer.load();
-		//AudioPlayer.getMusic("bgMusic").loop();
+
+		AudioPlayer.load();
+		AudioPlayer.getMusic("bgMusic").loop();
 		
 		/*
 		audio = AudioHandler.getInstance();
