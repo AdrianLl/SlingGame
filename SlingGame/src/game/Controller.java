@@ -31,11 +31,13 @@ public class Controller {
 	Textures textures;
 	GamePanel game;
 	
-	//audio
+	private SoundFXPlayer soundFX;
 
 	
 	public Controller(Textures textures, GamePanel game) {
 		//for now just randomly spawning in the x direction on the three paths
+		
+		soundFX = new SoundFXPlayer();
 		this.textures=textures;
 		this.game=game;
 		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 206, textures,this,game));
@@ -89,14 +91,14 @@ public class Controller {
 	// Player Constructors/Destructor
 	public void addObject(PlayerObjects block) {
 		po.add(block);
-		AudioPlayer.getSound("bbSound").play();
+		soundFX.playBbSound();
 		
 		
 	}
 	//Removes bean bag from the screen
 	public void removeObject(PlayerObjects block) {
 		po.remove(block);
-		AudioPlayer.getSound("trSound").play();
+		soundFX.playTrSound();
 	}
 
 	// Enemy Constructors/Destructor

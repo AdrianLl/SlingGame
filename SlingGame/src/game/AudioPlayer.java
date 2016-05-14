@@ -1,36 +1,54 @@
 package game;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
-import org.newdawn.slick.Music;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
+import java.net.URL;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class AudioPlayer {
 
-	public static Map<String, Sound> soundMap = new HashMap<String, Sound>();
-	public static Map<String, Music> musicMap = new HashMap<String, Music>();
+	private static Mixer mixer;
+	private static Clip bgMusic;
+	private URL bgURL;
+	private AudioInputStream audioStream;
 
-	public static void load() {
+	public AudioPlayer() {
+
+		mixer = AudioSystem.getMixer(null);
 
 		try {
-
-			soundMap.put("bbSound", new Sound("audio/beanbag-sound.wav"));
-			soundMap.put("trSound", new Sound("audio/trustee-sound.wav"));
-			musicMap.put("bgMusic", new Music("audio/background-sound.wav"));
-
-		} catch (SlickException e) {
+			bgMusic = (Clip) mixer.getLine(new DataLine.Info(Clip.class, null));
+		} catch (LineUnavailableException e) {
 			e.printStackTrace();
 		}
 
+		try {
+			// background music
+			bgURL = AudioPlayer.class.getResource("/background-sound.wav");
+			audioStream = AudioSystem.getAudioInputStream(bgURL);
+			bgMusic.open(audioStream);
+			bgMusic.loop(Clip.LOOP_CONTINUOUSLY);
+			FloatControl gainControl = (FloatControl) bgMusic.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(-20.0f);
+
+		} catch (UnsupportedAudioFileException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public static Music getMusic(String key) {
-		return musicMap.get(key);
-	}
-
-	public static Sound getSound(String key) {
-		return soundMap.get(key);
+	public void playBgMusic() {
+		bgMusic.start();
 	}
 }

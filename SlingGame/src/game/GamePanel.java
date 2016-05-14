@@ -19,7 +19,6 @@ import java.util.LinkedList;
 
 
 import loaders.BufferedImageLoader;
-//import loaders.KeyInput;
 import loaders.MouseInput;
 import objects.BeanBag;
 import objects.Canon;
@@ -75,26 +74,19 @@ public class GamePanel extends Canvas implements Runnable {
 	public Rectangle helpButton = new Rectangle(103, 735, 100, 40);
 	public Rectangle quitButton = new Rectangle(203, 735, 100, 40);
 	
+	private AudioPlayer sound;
+	
 	/**
 	 * init function to initialize game elements such as images and key
 	 * listeners for now
 	 */
 	public void init() {
 		requestFocus(); // makes the game panel the main focus when opened
+		sound = new AudioPlayer();
+		sound.playBgMusic();
 		
 
-		AudioPlayer.load();
-		AudioPlayer.getMusic("bgMusic").loop();
-		
-		/*
-		audio = AudioHandler.getInstance();
-		audio.load("background-sound.wav", "BG");
-		audio.load("beanbag-sound.wav", "bag");
-		audio.load("trustee-sound.wav", "trustee");
-		//audio.adjustVolume("BG",-10);
-		audio.play("BG", Clip.LOOP_CONTINUOUSLY);
-		
-		*/
+
 		BufferedImageLoader loader = new BufferedImageLoader();
 		// image loader initiated
 
@@ -117,6 +109,7 @@ public class GamePanel extends Canvas implements Runnable {
 		canon = new Canon(512, 675, textures); // canon initialized
 		c = new Controller(textures, this); // game controller initialized
 		menu = new Menu();
+		
 
 		po = c.getPlayerObjects();
 		eo = c.getEnemyObjects();
