@@ -32,7 +32,7 @@ public class AudioPlayer {
 
 		try {
 			// background music
-			bgURL = AudioPlayer.class.getResource("/background-sound.wav");
+			bgURL = AudioPlayer.class.getResource("/theme_music_16bit.wav");
 			audioStream = AudioSystem.getAudioInputStream(bgURL);
 			bgMusic.open(audioStream);
 			bgMusic.loop(Clip.LOOP_CONTINUOUSLY);
