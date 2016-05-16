@@ -32,8 +32,8 @@ public class Textures {
 
 		for (int i = 0, j = 1; i < 14; i++, j++) {
 
-			trusteeF[i] = ss.grabImage(j, 2, 50, 70);
-			trusteeB[i] = ss.grabImage(j, 4, 50, 70);
+			trusteeF[i] = ss.grabImage(j, 10, 50, 70);
+			trusteeB[i] = ss.grabImage(j, 12, 50, 70);
 
 		}
 
