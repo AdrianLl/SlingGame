@@ -10,7 +10,6 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -102,7 +101,6 @@ public class GamePanel extends Canvas implements Runnable {
 
 		crosshair(); // loads the crosshair cursor
 
-		//this.addKeyListener(new KeyInput(this)); // key listener initialized
 		this.addMouseListener(new MouseInput(this));
 
 		textures = new Textures(this);
@@ -252,54 +250,8 @@ public class GamePanel extends Canvas implements Runnable {
 		bs.show(); // display (buffer strategy)
 	}
 
-	/**
-	 * key event function for key pressed
-	 * 
-	 * this will affect the up,down,left,right keys
-	 */
-	
-	/* Commented out cannon movement from keyboard
-	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode(); // determines the key pressed
-		int moveSpeed = 10; // move speed when key pressed
-		/**
-		 * below is the behavior for the directional keys. 
-		if(state == STATE.PLAY){
-			if (key == KeyEvent.VK_RIGHT) {
-				canon.setVelX(moveSpeed);
-			} else if (key == KeyEvent.VK_LEFT) {
-				canon.setVelX(-moveSpeed);
-			} else if (key == KeyEvent.VK_DOWN) {
-				canon.setVelY(moveSpeed);
-			} else if (key == KeyEvent.VK_UP) {
-				canon.setVelY(-moveSpeed);
-			}
-		}
-	}
-	/*
-	
-	/**
-	 * behavior on key release, might need to be modified depending on game
-	 * mechanics. at the moment stops movement on the cursor when key released
-	 */
-	public void keyReleased(KeyEvent e) {
-		int key = e.getKeyCode();
-		int moveSpeed = 0;
-
-		if (key == KeyEvent.VK_RIGHT) {
-			canon.setVelX(moveSpeed);
-		} else if (key == KeyEvent.VK_LEFT) {
-			canon.setVelX(-moveSpeed);
-		} else if (key == KeyEvent.VK_DOWN) {
-			canon.setVelY(moveSpeed);
-		} else if (key == KeyEvent.VK_UP) {
-			canon.setVelY(-moveSpeed);
-		}
-
-	}
-
 	public void mousePressed(MouseEvent e) {
-		// test
+
 		if (state == STATE.PLAY) {
 
 			/*
