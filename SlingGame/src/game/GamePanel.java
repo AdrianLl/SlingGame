@@ -243,17 +243,12 @@ public class GamePanel extends Canvas implements Runnable {
 			g.drawString("RESTART", Restart_Button.x , Restart_Button.y + 25);
 			g2d.draw(Restart_Button);
 			
-			if(bagAmmo == 0){
+			
+			//Displays Game Over when the game either the bean bags are done or the linked list is empty
+			if(bagAmmo == 0 || eo.isEmpty()){
 		        System.out.println("No more Bean Bag");
 		        drawText(g);
-		        
-				Font Restart_font = new Font("Serif",Font.BOLD, 35);
-				g.setFont(Restart_font);
-				g.setColor(Color.YELLOW);
-		        
-				g.drawString("Restart", 490, 515);
-				g2d.draw(Restart_Button);
-		        
+		       
 			}
 		} else if (state == STATE.MENU) {
 			g.drawImage(menuBackground, 0, 0, getWidth(), getHeight(), this);
