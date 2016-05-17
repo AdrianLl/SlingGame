@@ -108,7 +108,6 @@ public class Dean extends GameObject implements EnemyObjects {
 
 	@Override
 	public int getScore() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	

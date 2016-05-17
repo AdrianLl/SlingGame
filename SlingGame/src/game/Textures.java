@@ -22,7 +22,13 @@ public class Textures {
 	public BufferedImage[] studentF = new BufferedImage[14]; // walk forward
 	public BufferedImage[] studentB = new BufferedImage[14]; // walk backward
 	
-	public BufferedImage canon, beanbag;
+	public BufferedImage canon;
+	
+	public BufferedImage beanbagRED;
+	public BufferedImage beanbagPURPLE;
+	public BufferedImage beanbagPINK;
+	public BufferedImage beanbagGREEN;
+	public BufferedImage beanbagBLUE;
 
 	public Textures(GamePanel game) {
 		ss = new SpriteSheet(game.getSpriteSheet());
@@ -34,7 +40,13 @@ public class Textures {
 	 */
 	private void getTextures() {
 		// col,row,size
-		beanbag = ss.grabImage(1, 19, 20, 20);
+			
+		beanbagGREEN = ss.grabImage(1, 19, 20, 20);
+		beanbagPINK = ss.grabImage(2, 19, 20, 20);
+		beanbagBLUE = ss.grabImage(3, 19, 20, 20);
+		beanbagRED = ss.grabImage(4, 19, 20, 20);
+		beanbagPURPLE = ss.grabImage(5, 19, 20, 20);
+		
 
 		for (int i = 0, j = 1; i < 14; i++, j++) {
 

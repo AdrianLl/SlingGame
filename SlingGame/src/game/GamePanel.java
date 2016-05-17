@@ -19,8 +19,10 @@ import java.util.LinkedList;
 import loaders.BufferedImageLoader;
 import loaders.MouseInput;
 import objects.BeanBag;
+import objects.BeanBagColor;
 import objects.EnemyObjects;
 import objects.PlayerObjects;
+import objects.ScoreBeanBag;
 
 /**
  * GameCanvas will load game objects, render graphics, load sound, and initiate
@@ -70,6 +72,10 @@ public class GamePanel extends Canvas implements Runnable {
 
 	private AudioPlayer sound;
 	
+	public static BeanBagColor[] colors = new BeanBagColor[20];
+	private LinkedList<ScoreBeanBag> scoreBags = new LinkedList<ScoreBeanBag>();
+	private int bagAmmo = 20;
+	
 	/**
 	 * Game initialization happens here for images, audio, loaders.
 	 */
@@ -95,12 +101,13 @@ public class GamePanel extends Canvas implements Runnable {
 		/************ IMAGES LOADED HERE END ************/
 
 		crosshair(); // loads the cursor
+		
+		randomBagArray(); //loads starting beanbags
 
 		this.addMouseListener(new MouseInput(this)); // mouse listener initiated
 
 		textures = new Textures(this); // textures from sprite are loaded
 		controller = new Controller(textures, this); // game controller initialized
-		
 
 		po = controller.getPlayerObjects(); //player objects initiated
 		eo = controller.getEnemyObjects(); //enemy objects initiated 
@@ -201,18 +208,18 @@ public class GamePanel extends Canvas implements Runnable {
 		}
 
 		Graphics g = bs.getDrawGraphics();
-		
+
 		/***** IMAGES RENDERED HERE ************/
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 		g.setColor(Color.WHITE); // whitespace color
 		g.fillRect(0, 0, 1500, 1500); // whitespace for png to show the
-		
+
 		if (state == STATE.PLAY) { // school
-			
+
 			Graphics2D g2d = (Graphics2D) g;
 			// draw background
 			g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
-			
+
 			controller.render(g);
 
 			/*
@@ -229,15 +236,11 @@ public class GamePanel extends Canvas implements Runnable {
 			g2d.draw(quitButton);
 		} else if (state == STATE.MENU) {
 			g.drawImage(menuBackground, 0, 0, getWidth(), getHeight(), this);
-			
+
 		}
-		
+
 		/***** IMAGES RENDERED HERE ************/
-		//Moved into the state if statement
-		//if (state == STATE.PLAY) {
-	
-		//}
-		
+
 		g.dispose(); // clean up graphic resources in the game
 		bs.show(); // display (buffer strategy)
 	}
@@ -281,7 +284,9 @@ public class GamePanel extends Canvas implements Runnable {
 			}
 
 			System.out.println("XLOC: " + e.getX() + " YLOC: " + e.getY());
-			controller.addObject(new BeanBag(524, 645, textures, e.getX(), e.getY()));
+			controller.addObject(new BeanBag(524, 645, textures, e.getX(), e.getY(),colors[20-bagAmmo]));
+			controller.removeObject();;
+			bagAmmo--;
 		}
 		
 		if (state == STATE.MENU) {
@@ -341,5 +346,29 @@ public class GamePanel extends Canvas implements Runnable {
 		Cursor crosshair = toolkit.createCustomCursor(img, point, "crosshair");
 
 		setCursor(crosshair);
+	}
+	
+	public void randomBagArray() {
+		for (int i = 0; i < 20; i++) {
+			colors[i] = BeanBagColor.randomBeanBag();
+		}
+	}
+	
+	public void drawBagArray() {
+
+		int startXline1 = 764;
+		int startYline1 = 647;
+
+		int startXline2 = 764;
+		int startYline2 = 673;
+
+		for (int i = 0; i < 10; i++) {
+			scoreBags.add(new ScoreBeanBag(startXline1, startYline1, textures, colors[i]));
+			startXline1 += 25;
+		}
+		for (int i = 10; i < 20; i++) {
+			scoreBags.add(new ScoreBeanBag(startXline2, startYline2, textures, colors[i]));
+			startXline2 += 25;
+		}
 	}
 }

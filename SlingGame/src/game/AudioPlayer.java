@@ -55,6 +55,6 @@ public class AudioPlayer {
 		}
 		bgMusic.loop(Clip.LOOP_CONTINUOUSLY);
 		FloatControl gainControl = (FloatControl) bgMusic.getControl(FloatControl.Type.MASTER_GAIN);
-		gainControl.setValue(-20.0f);
+		gainControl.setValue(-25.0f);
 	}
 }
