@@ -34,21 +34,27 @@ public class AudioPlayer {
 			// background music
 			bgURL = AudioPlayer.class.getResource("/theme_music_16bit.wav");
 			audioStream = AudioSystem.getAudioInputStream(bgURL);
-			bgMusic.open(audioStream);
-			bgMusic.loop(Clip.LOOP_CONTINUOUSLY);
-			FloatControl gainControl = (FloatControl) bgMusic.getControl(FloatControl.Type.MASTER_GAIN);
-			gainControl.setValue(-20.0f);
+			
 
 		} catch (UnsupportedAudioFileException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
 		}
 	}
 
 	public void playBgMusic() {
-		bgMusic.start();
+		try {
+			bgMusic.open(audioStream);
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		bgMusic.loop(Clip.LOOP_CONTINUOUSLY);
+		FloatControl gainControl = (FloatControl) bgMusic.getControl(FloatControl.Type.MASTER_GAIN);
+		gainControl.setValue(-20.0f);
 	}
 }

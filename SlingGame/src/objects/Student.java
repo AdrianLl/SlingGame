@@ -18,14 +18,9 @@ public class Student extends GameObject implements EnemyObjects {
 
 	private GamePanel game;
 	private Controller c;
+	private int value = -5;
 
 	boolean forward = true; // bool for forward/backward movement
-
-	/**
-	 * Trustee constructor
-	 * 
-	 * 
-	 */
 	
 	/**
 	 * Student Constructor
@@ -115,5 +110,12 @@ public class Student extends GameObject implements EnemyObjects {
 	public int getScore() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	public int getValue(){
+		return value;
+	}
+	public void setValue(int v){
+		this.value=v;
 	}
 }

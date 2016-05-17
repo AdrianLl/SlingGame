@@ -53,10 +53,10 @@ public class GamePanel extends Canvas implements Runnable {
 	private BufferedImage background = null;
 	// background - loads the background image for the game
 	private BufferedImage crosshairImage = null;
+	private BufferedImage menuBackground = null;	
 
 	private Textures textures; // character animations, beanbags, canon images
 	private Controller controller;
-	private Menu menu;
 
 	public LinkedList<PlayerObjects> po; // player objects
 	public LinkedList<EnemyObjects> eo; // enemy objects
@@ -87,6 +87,8 @@ public class GamePanel extends Canvas implements Runnable {
 			spriteSheet = loader.loadImage("/MainSprite.png");
 			background = loader.loadImage("/Background.png");
 			crosshairImage = loader.loadImage("/Crosshair.png");
+			menuBackground = loader.loadImage("/MenuBackground.png");
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -98,7 +100,6 @@ public class GamePanel extends Canvas implements Runnable {
 
 		textures = new Textures(this); // textures from sprite are loaded
 		controller = new Controller(textures, this); // game controller initialized
-		menu = new Menu();
 		
 
 		po = controller.getPlayerObjects(); //player objects initiated
@@ -227,7 +228,8 @@ public class GamePanel extends Canvas implements Runnable {
 			g.drawString("QUIT", quitButton.x + 20, quitButton.y + 25);
 			g2d.draw(quitButton);
 		} else if (state == STATE.MENU) {
-			menu.render(g);
+			g.drawImage(menuBackground, 0, 0, getWidth(), getHeight(), this);
+			
 		}
 		
 		/***** IMAGES RENDERED HERE ************/
@@ -294,31 +296,24 @@ public class GamePanel extends Canvas implements Runnable {
 			 * Designates the area on the starting screen where the "PLAY" button is and changes the state to play 
 			 * when "PLAY" is clicked.
 			 */
-			if (mx >= GamePanel.WIDTH / 2 - 150 && mx <= (GamePanel.WIDTH / 2 - 150) + 300) {
-				if (my >= 395 && my <= 475) {
+			if (mx >= 432 && mx <= 576) {
+				if (my >= 325 && my <= 425) {
 					// Pressed play button
 					System.out.println("PLAY PRESSED");
 					this.state = STATE.PLAY;
 				}
 			}
-			// MENU
-			if (mx >= GamePanel.WIDTH / 2 - 150 && mx <= (GamePanel.WIDTH / 2 - 150) + 300) {
-				if (my >= 490 && my <= 570) {
-					System.out.println("MENU PRESSED");
-					this.state = STATE.MENU;
-				}
-			}
-			// HELP
-			if (mx >= GamePanel.WIDTH / 2 - 150 && mx <= (GamePanel.WIDTH / 2 - 150) + 300) {
-				if (my >= 585 && my <= 665) {
-					// Pressed help button
+			// 	HELP
+			if (mx >= 258 && mx <= 403) {
+				if (my >= 436 && my <= 536) {
 					System.out.println("HELP PRESSED");
 					this.state = STATE.MENU;
 				}
 			}
+
 			// QUIT
-			if (mx >= GamePanel.WIDTH / 2 - 150 && mx <= (GamePanel.WIDTH / 2 - 150) + 300) {
-				if (my >= 680 && my <= 760) {
+			if (mx >= 606 && mx <= 750) {
+				if (my >= 441 && my <= 541) {
 					// Pressed quit button
 					System.out.println("QUIT PRESSED");
 					System.exit(1);
