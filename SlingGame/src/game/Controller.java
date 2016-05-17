@@ -7,6 +7,7 @@ import java.util.Random;
 
 import objects.EnemyObjects;
 import objects.PlayerObjects;
+import objects.ScoreBeanBag;
 import objects.Trustee;
 
 
@@ -20,6 +21,8 @@ public class Controller {
 	//Linked list of game objects (trustee, beanbag, etc)
 	private LinkedList<PlayerObjects> po = new LinkedList<PlayerObjects>();
 	private LinkedList<EnemyObjects> eo = new LinkedList<EnemyObjects>();
+	private LinkedList<ScoreBeanBag> scoreBag = new LinkedList<ScoreBeanBag>();
+	
 	//ScoreBoard Counter
 	private static int score = 0;
 	
@@ -55,6 +58,21 @@ public class Controller {
 		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 206, textures,this,game));
 		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 338, textures,this,game));
 		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 473, textures,this,game));
+		
+		int startXline1 = 764;
+		int startYline1 = 647;
+
+		int startXline2 = 764;
+		int startYline2 = 673;
+
+		for (int i = 0; i < 10; i++) {
+			addScoreBag(new ScoreBeanBag(startXline1, startYline1, textures, GamePanel.colors[i]));
+			startXline1 += 25;
+		}
+		for (int i = 10; i < 20; i++) {
+			addScoreBag(new ScoreBeanBag(startXline2, startYline2, textures, GamePanel.colors[i]));
+			startXline2 += 25;
+		}
 	}
 
 	public void tick() {
@@ -69,6 +87,12 @@ public class Controller {
 			enemyObj = eo.get(i);
 			enemyObj.tick();
 		}
+		
+		for (int i = 0; i < scoreBag.size(); i++) {
+			playerObj = scoreBag.get(i);
+			playerObj.tick();
+		}
+		
 	}
 
 	public void render(Graphics g) {
@@ -84,6 +108,11 @@ public class Controller {
 		for (int i = 0; i < eo.size(); i++) {
 			enemyObj = eo.get(i);
 			enemyObj.render(g);
+		}
+		
+		for (int i = 0; i < scoreBag.size(); i++) {
+			playerObj = scoreBag.get(i);
+			playerObj.render(g);
 		}
 		
 	}
@@ -109,6 +138,14 @@ public class Controller {
 	public void removeObject(EnemyObjects block) {
 		eo.remove(block);
 		score += 10;
+	}
+	
+	public void addScoreBag(ScoreBeanBag block) {
+		scoreBag.add(block);
+	}
+	
+	public void removeScoreBag() {
+		scoreBag.removeFirst();
 	}
 	
 	public LinkedList<PlayerObjects> getPlayerObjects(){

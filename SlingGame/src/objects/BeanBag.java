@@ -15,6 +15,7 @@ public class BeanBag extends GameObject implements PlayerObjects{
 	//(x,y) coordinate of beanbag on the GamePanel
 	private double xDir;
 	private double yDir;
+	BeanBagColor color;
 
 	//loads the images that is set for the beanbag
 	private Textures texture;
@@ -37,6 +38,14 @@ public class BeanBag extends GameObject implements PlayerObjects{
 		this.yDir = yDir;
 	}
 	
+	public BeanBag(double x, double y, Textures texture, double xDir, double yDir, BeanBagColor color) {
+		super(x, y);
+		this.texture = texture;
+		this.xDir = xDir;
+		this.yDir = yDir;
+		this.color = color;
+	}
+	
 	/**
 	 * The tick method dictates beanbag movement in the x or y direction.
 	 * Depending on the movement that is added per tick it will also determine movement speed
@@ -46,18 +55,31 @@ public class BeanBag extends GameObject implements PlayerObjects{
 		if (xDir >= 539) {
 			x += (yDir - 150) / 100;
 			y -= (1024 - xDir) / 100;
-			System.out.println(x + "," + y);
+			//System.out.println(x + "," + y);
 
 		} else {
 			x -= (yDir - 150) / 100;
 			y -= xDir / 100;
-			System.out.println(x + "," + y);
+			//System.out.println(x + "," + y);
 		}
 
 	}
 
 	public void render(Graphics g) {
-		g.drawImage(texture.beanbag, (int) x, (int) y, null);
+		if(this.color==BeanBagColor.RED)
+			g.drawImage(texture.beanbagRED, (int) x, (int) y, null);
+		
+		else if(this.color==BeanBagColor.PURPLE)
+			g.drawImage(texture.beanbagPURPLE, (int) x, (int) y, null);
+		
+		else if(this.color==BeanBagColor.PINK)
+			g.drawImage(texture.beanbagPINK, (int) x, (int) y, null);
+		
+		else if(this.color==BeanBagColor.GREEN)
+			g.drawImage(texture.beanbagGREEN, (int) x, (int) y, null);
+		
+		else if(this.color==BeanBagColor.BLUE)
+			g.drawImage(texture.beanbagBLUE, (int) x, (int) y, null);
 	}
 
 	public double getY() {

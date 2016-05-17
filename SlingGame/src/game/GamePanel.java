@@ -285,7 +285,7 @@ public class GamePanel extends Canvas implements Runnable {
 
 			System.out.println("XLOC: " + e.getX() + " YLOC: " + e.getY());
 			controller.addObject(new BeanBag(524, 645, textures, e.getX(), e.getY(),colors[20-bagAmmo]));
-			controller.removeObject();;
+			controller.removeScoreBag();
 			bagAmmo--;
 		}
 		
