@@ -90,7 +90,7 @@ public class GamePanel extends Canvas implements Runnable {
 		try {
 			spriteSheet = loader.loadImage("/MainSprite.png");
 			background = loader.loadImage("/Background.png");
-			crosshairImage = loader.loadImage("/Crosshair.png");
+			crosshairImage = loader.loadImage("/crosshair.png");
 			menuBackground = loader.loadImage("/MenuBackground.png");
 			
 		} catch (IOException e) {
