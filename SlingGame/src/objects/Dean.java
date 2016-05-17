@@ -76,6 +76,8 @@ public class Dean extends GameObject implements EnemyObjects {
 			if (Collisions.Collision(this, tempPlayer)) {
 				c.removeObject(tempPlayer);
 				c.removeObject(this);
+				//This increments the score  if the bean bag hits a Dean
+				Controller.score -= 5;
 			}
 
 		}

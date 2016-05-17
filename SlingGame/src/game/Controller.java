@@ -27,7 +27,7 @@ public class Controller {
 	private LinkedList<ScoreBeanBag> scoreBags = new LinkedList<ScoreBeanBag>();
 	
 	//ScoreBoard Counter
-	private static int score = 0;
+	public static int score = 0;
 	
 	PlayerObjects playerObj;
 	EnemyObjects enemyObj;
@@ -40,7 +40,7 @@ public class Controller {
 	private SoundFXPlayer soundFX = new SoundFXPlayer();
 	
 	public Controller(Textures textures, GamePanel game) {
-		//for now just randomly spawning in the x direction on the three paths
+		//Randomly spawning in the x direction on the three paths
 		
 		this.textures = textures;
 		this.game = game;

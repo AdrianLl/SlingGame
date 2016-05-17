@@ -76,6 +76,8 @@ public class Student extends GameObject implements EnemyObjects {
 			if (Collisions.Collision(this, tempPlayer)) {
 				c.removeObject(tempPlayer);
 				c.removeObject(this);
+				//This Subtracts points away  if the bean bag hits a Students
+				Controller.score -= 15;
 			}
 
 		}

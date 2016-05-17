@@ -65,9 +65,9 @@ public class GamePanel extends Canvas implements Runnable {
 	private STATE state = STATE.MENU; // default game state is MENU
 	
 	//menu button load (x,y,width,height)
-	public Rectangle menuButton = new Rectangle(15, 735, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
-	public Rectangle helpButton = new Rectangle(115, 735, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
-	public Rectangle quitButton = new Rectangle(215, 735, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
+	public Rectangle menuButton = new Rectangle(15, 725, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
+	public Rectangle helpButton = new Rectangle(115, 725, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
+	public Rectangle quitButton = new Rectangle(215, 725, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
 
 	private AudioPlayer sound;
 	
