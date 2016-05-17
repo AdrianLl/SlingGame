@@ -69,7 +69,7 @@ public class GamePanel extends Canvas implements Runnable {
 	public Rectangle menuButton = new Rectangle(15, 725, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
 	public Rectangle helpButton = new Rectangle(115, 725, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
 	public Rectangle quitButton = new Rectangle(215, 725, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
-	public Rectangle Restart_Button = new Rectangle(490, 515, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
+	public Rectangle Restart_Button = new Rectangle(315, 725, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
 	
 	public Rectangle menuButtonHelp = new Rectangle(20, 721, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
 	public Rectangle helpButtonHelp = new Rectangle(120, 721, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
@@ -240,6 +240,8 @@ public class GamePanel extends Canvas implements Runnable {
 			g2d.draw(helpButton);
 			g.drawString("QUIT", quitButton.x + 20, quitButton.y + 25);
 			g2d.draw(quitButton);
+			g.drawString("RESTART", Restart_Button.x , Restart_Button.y + 25);
+			g2d.draw(Restart_Button);
 			
 			if(bagAmmo == 0){
 		        System.out.println("No more Bean Bag");
@@ -295,14 +297,7 @@ public class GamePanel extends Canvas implements Runnable {
 			 * Designates the area on the starting screen where the "PLAY"
 			 * button is and changes the state to play when "PLAY" is clicked.
 			 */
-			
-			/*
-			 * 
-			 * public Rectangle menuButton = new Rectangle(15, 725, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
-	public Rectangle helpButton = new Rectangle(115, 725, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
-	public Rectangle quitButton = new Rectangle(215, 725, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
-	public Rectangle Restart_Button = new Rectangle(490, 515, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
-			 */
+
 			// MENU
 			if (mx >= 15 && mx <= 115) {
 				if (my >= 725 && my <= 765) {
@@ -325,12 +320,14 @@ public class GamePanel extends Canvas implements Runnable {
 					System.out.println("QUIT PRESSED");
 					System.exit(1);
 				}
-				/*
-				 * //Restarting the game if(mx >= 480 && mx <= 550){ if(my >=370
-				 * && my <=505) System.out.println("Restart game pressed");
-				 * System.exit(1); }
-				 */
 			}
+			//RESTART
+			 if(mx >= 315 && mx <= 415){ 
+                 if(my >=725 && my <= 765) {
+                     System.out.println("Restart game pressed");
+                     System.exit(1); 
+                 }
+             }
 
 			System.out.println("XLOC: " + e.getX() + " YLOC: " + e.getY());
 			controller.addObject(new BeanBag(524, 645, textures, e.getX(), e.getY(), colors[20 - bagAmmo]));

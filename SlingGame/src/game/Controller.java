@@ -44,6 +44,17 @@ public class Controller {
 		
 		this.textures = textures;
 		this.game = game;
+		
+		int section1 = 0;
+		
+		int line1 = 206;
+		int line2 = 338;
+		int line3 = 473;
+		
+		
+		addObject(new Trustee(r.nextInt(1024), 206.0, textures, this, game));
+		
+		
 
 		addObject(new Trustee(r.nextInt(1024), 206.0, textures, this, game));
 		addObject(new Trustee(r.nextInt(1024), 338.0, textures, this, game));
