@@ -135,7 +135,7 @@ public class GamePanel extends Canvas implements Runnable {
 	/**
 	 * Stops the game thread
 	 */
-	private synchronized void stop() {
+	public synchronized void stop() {
 		if (!running)
 			return;
 
@@ -320,7 +320,7 @@ public class GamePanel extends Canvas implements Runnable {
 			 if(mx >= 315 && mx <= 415){ 
                  if(my >=725 && my <= 765) {
                      System.out.println("Restart game pressed");
-                     System.exit(1); 
+                     Restart_Game();
                  }
              }
 
@@ -426,17 +426,22 @@ public class GamePanel extends Canvas implements Runnable {
 
 		setCursor(crosshair);
 	}
-	
+	//Random picks the color bean bags
 	public void randomBagArray() {
 		for (int i = 0; i < 20; i++) {
 			colors[i] = BeanBagColor.randomBeanBag();
 		}
 	}
+	//function that draws the Game Over text
 	public void drawText(Graphics g){
 		Font Gameover_font = new Font("Serif",Font.BOLD, 120);
 		g.setFont(Gameover_font);
 		g.setColor(Color.RED);
-		g.drawString("GAME OVER", 190, 430);
+		g.drawString("GAME OVER", 180, 430);
+	}
+	
+	public void Restart_Game(){
+
 	}
 	
 }
