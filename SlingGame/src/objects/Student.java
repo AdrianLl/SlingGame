@@ -87,7 +87,7 @@ public class Student extends GameObject implements EnemyObjects {
 
 	}
 
-
+	//
 	public void render(Graphics g) {
 		if (forward) {
 			studentAnimationF.drawAnimation(g, x, y, 0);

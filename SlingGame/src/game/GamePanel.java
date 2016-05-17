@@ -68,6 +68,7 @@ public class GamePanel extends Canvas implements Runnable {
 	public Rectangle menuButton = new Rectangle(15, 725, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
 	public Rectangle helpButton = new Rectangle(115, 725, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
 	public Rectangle quitButton = new Rectangle(215, 725, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
+	public Rectangle Restart_Button = new Rectangle(490, 515, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
 
 	private AudioPlayer sound;
 	
@@ -232,10 +233,25 @@ public class GamePanel extends Canvas implements Runnable {
 			g2d.draw(helpButton);
 			g.drawString("QUIT", quitButton.x + 20, quitButton.y + 25);
 			g2d.draw(quitButton);
+			
+			if(bagAmmo == 0){
+		        System.out.println("No more Bean Bag");
+		        drawText(g);
+		        
+				Font Restart_font = new Font("Serif",Font.BOLD, 35);
+				g.setFont(Restart_font);
+				g.setColor(Color.YELLOW);
+		        
+				g.drawString("Restart", 490, 515);
+				g2d.draw(Restart_Button);
+		        
+			}
 		} else if (state == STATE.MENU) {
 			g.drawImage(menuBackground, 0, 0, getWidth(), getHeight(), this);
 
 		}
+		
+
 
 		/***** IMAGES RENDERED HERE ************/
 
@@ -279,8 +295,15 @@ public class GamePanel extends Canvas implements Runnable {
 					System.out.println("QUIT PRESSED");
 					System.exit(1);
 				}
+			/*	
+			//Restarting the game
+			if(mx >= 480 && mx <= 550)
+				if(my >=370 && my <=505)
+					System.out.println("Restart game pressed");
+					System.exit(1);
+			
 			}
-
+			*/
 			System.out.println("XLOC: " + e.getX() + " YLOC: " + e.getY());
 			controller.addObject(new BeanBag(524, 645, textures, e.getX(), e.getY(),colors[20-bagAmmo]));
 			controller.removeObject();
@@ -351,4 +374,11 @@ public class GamePanel extends Canvas implements Runnable {
 			colors[i] = BeanBagColor.randomBeanBag();
 		}
 	}
+	public void drawText(Graphics g){
+		Font Gameover_font = new Font("Serif",Font.BOLD, 120);
+		g.setFont(Gameover_font);
+		g.setColor(Color.RED);
+		g.drawString("GAME OVER", 190, 430);
+	}
+	
 }
