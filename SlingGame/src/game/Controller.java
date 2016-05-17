@@ -29,6 +29,10 @@ public class Controller {
 	//ScoreBoard Counter
 	public static int score = 0;
 	
+	private int line1 = 206;
+	private int line2 = 338;
+	private int line3 = 473;
+	
 	PlayerObjects playerObj;
 	EnemyObjects enemyObj;
 
@@ -45,28 +49,42 @@ public class Controller {
 		this.textures = textures;
 		this.game = game;
 		
-		int section1 = 0;
+		//trustee initial spawn, 2 per row
+		addObject(new Trustee(r.nextInt(1024), line1, textures, this, game));
+		addObject(new Trustee(r.nextInt(1024), line1, textures, this, game));
 		
-		int line1 = 206;
-		int line2 = 338;
-		int line3 = 473;
+		addObject(new Trustee(r.nextInt(1024), line2, textures, this, game));
+		addObject(new Trustee(r.nextInt(1024), line2, textures, this, game));
 		
+		addObject(new Trustee(r.nextInt(1024), line3, textures, this, game));
+		addObject(new Trustee(r.nextInt(1024), line3, textures, this, game));
 		
-		addObject(new Trustee(r.nextInt(1024), 206.0, textures, this, game));
+		//dean initial spawn 3 per row
+		addObject(new Dean(r.nextInt(1024), line1, textures, this, game));
+		addObject(new Dean(r.nextInt(1024), line1, textures, this, game));
+		addObject(new Dean(r.nextInt(1024), line1, textures, this, game));
 		
+		addObject(new Dean(r.nextInt(1024), line2, textures, this, game));
+		addObject(new Dean(r.nextInt(1024), line2, textures, this, game));
+		addObject(new Dean(r.nextInt(1024), line2, textures, this, game));
 		
+		addObject(new Dean(r.nextInt(1024), line3, textures, this, game));
+		addObject(new Dean(r.nextInt(1024), line3, textures, this, game));
+		addObject(new Dean(r.nextInt(1024), line3, textures, this, game));
+		
+		//student initial spawn, 2 row 1 and 2, 3 for row 3
+		addObject(new Student(r.nextInt(1024), line1, textures, this, game));
+		addObject(new Student(r.nextInt(1024), line1, textures, this, game));
 
-		addObject(new Trustee(r.nextInt(1024), 206.0, textures, this, game));
-		addObject(new Trustee(r.nextInt(1024), 338.0, textures, this, game));
-		addObject(new Trustee(r.nextInt(1024), 473.0, textures, this, game));
+		addObject(new Student(r.nextInt(1024), line2, textures, this, game));
+		addObject(new Student(r.nextInt(1024), line2, textures, this, game));
+		addObject(new Student(r.nextInt(1024), line2, textures, this, game));
 		
-		addObject(new Dean(r.nextInt(1024), 206.0, textures, this, game));
-		addObject(new Dean(r.nextInt(1024), 338.0, textures, this, game));
-		addObject(new Dean(r.nextInt(1024), 473.0, textures, this, game));
 		
-		addObject(new Student(r.nextInt(1024), 206.0, textures, this, game));
-		addObject(new Student(r.nextInt(1024), 338.0, textures, this, game));
-		addObject(new Student(r.nextInt(1024), 473.0, textures, this, game));
+		addObject(new Student(r.nextInt(1024), line3, textures, this, game));
+		addObject(new Student(r.nextInt(1024), line3, textures, this, game));
+		addObject(new Student(r.nextInt(1024), line3, textures, this, game));
+		
 
 		int startXline1 = 764;
 		int startYline1 = 647;
