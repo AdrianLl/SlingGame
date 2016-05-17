@@ -91,7 +91,7 @@ public class GamePanel extends Canvas implements Runnable {
 		try {
 			spriteSheet = loader.loadImage("/MainSprite.png");
 			background = loader.loadImage("/Background.png");
-			crosshairImage = loader.loadImage("/crosshair.png");
+			crosshairImage = loader.loadImage("/Crosshair.png");
 			menuBackground = loader.loadImage("/MenuBackground.png");
 			
 		} catch (IOException e) {
@@ -297,13 +297,14 @@ public class GamePanel extends Canvas implements Runnable {
 				}
 			/*	
 			//Restarting the game
-			if(mx >= 480 && mx <= 550)
+			if(mx >= 480 && mx <= 550){
 				if(my >=370 && my <=505)
 					System.out.println("Restart game pressed");
 					System.exit(1);
-			
 			}
 			*/
+		}
+
 			System.out.println("XLOC: " + e.getX() + " YLOC: " + e.getY());
 			controller.addObject(new BeanBag(524, 645, textures, e.getX(), e.getY(),colors[20-bagAmmo]));
 			controller.removeObject();
