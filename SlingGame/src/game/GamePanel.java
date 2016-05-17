@@ -16,33 +16,32 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.LinkedList;
 
-
 import loaders.BufferedImageLoader;
 import loaders.MouseInput;
 import objects.BeanBag;
-import objects.Canon;
 import objects.EnemyObjects;
 import objects.PlayerObjects;
 
-
 /**
- * Game canvas will have most of the game mechanics running through here.
- * 
- * This is where the main class is located and will execute from here.
+ * GameCanvas will load game objects, render graphics, load sound, and initiate
+ * game functions.
  *
  */
 public class GamePanel extends Canvas implements Runnable {
-	// uses runnable to execute the game in a thread
 
 	private static final long serialVersionUID = 1L;
 	// serial id to ensure different versions don't get confused
 
-	// Game Canvas size
+	// Game Canvas Size
 	public static final int WIDTH = 1024;
 	public static final int HEIGHT = 768;
 
+	// Game Panel Button Size
+	public static final int GAMEPANEL_BUTTON_WIDTH = 100;
+	public static final int GAMEPANEL_BUTTON_HEIGHT = 40;
+
 	// Game Canvas Title Bar at the top
-	public final String TITLE = "Trustee Down v3";
+	public final String TITLE = "Trustee Down Final";
 	// Game Canvas running state
 	private boolean running = false;
 	// Game canvas thread
@@ -55,62 +54,55 @@ public class GamePanel extends Canvas implements Runnable {
 	// background - loads the background image for the game
 	private BufferedImage crosshairImage = null;
 
-	/**
-	 * Game objects will be loaded here, for now we have the player (cursor)
-	 * loaded here.
-	 */
-	private Canon canon;
-	private Textures textures;
-	private Controller c;
+	private Textures textures; // character animations, beanbags, canon images
+	private Controller controller;
 	private Menu menu;
 
-	public LinkedList<PlayerObjects> po;
-	public LinkedList<EnemyObjects> eo;
+	public LinkedList<PlayerObjects> po; // player objects
+	public LinkedList<EnemyObjects> eo; // enemy objects
+
+	private STATE state = STATE.MENU; // default game state is MENU
 	
-	private STATE state  = STATE.MENU;
-	
-	public Rectangle menuButton = new Rectangle(3, 735, 100, 40);
-	public Rectangle helpButton = new Rectangle(103, 735, 100, 40);
-	public Rectangle quitButton = new Rectangle(203, 735, 100, 40);
-	
+	//menu button load (x,y,width,height)
+	public Rectangle menuButton = new Rectangle(15, 735, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
+	public Rectangle helpButton = new Rectangle(115, 735, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
+	public Rectangle quitButton = new Rectangle(215, 735, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
+
 	private AudioPlayer sound;
 	
 	/**
-	 * init function to initialize game elements such as images and key
-	 * listeners for now
+	 * Game initialization happens here for images, audio, loaders.
 	 */
 	public void init() {
 		requestFocus(); // makes the game panel the main focus when opened
-		sound = new AudioPlayer();
-		sound.playBgMusic();
 		
-
-
+		sound = new AudioPlayer(); //loads bg music
+		sound.playBgMusic(); // plays bg music from beginning
+		
 		BufferedImageLoader loader = new BufferedImageLoader();
 		// image loader initiated
 
-		/************ IMAGES LOADED HERE ************/
+		/************ IMAGES LOADED HERE START ************/
 		try {
 			spriteSheet = loader.loadImage("/MainSprite.png");
-			background = loader.loadImage("/backgroundV3.png");
-			crosshairImage = loader.loadImage("/crosshair.png");
+			background = loader.loadImage("/Background.png");
+			crosshairImage = loader.loadImage("/Crosshair.png");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		/************ IMAGES LOADED HERE ************/
+		/************ IMAGES LOADED HERE END ************/
 
-		crosshair(); // loads the crosshair cursor
+		crosshair(); // loads the cursor
 
-		this.addMouseListener(new MouseInput(this));
+		this.addMouseListener(new MouseInput(this)); // mouse listener initiated
 
-		textures = new Textures(this);
-		canon = new Canon(512, 675, textures); // canon initialized
-		c = new Controller(textures, this); // game controller initialized
+		textures = new Textures(this); // textures from sprite are loaded
+		controller = new Controller(textures, this); // game controller initialized
 		menu = new Menu();
 		
 
-		po = c.getPlayerObjects();
-		eo = c.getEnemyObjects();
+		po = controller.getPlayerObjects(); //player objects initiated
+		eo = controller.getEnemyObjects(); //enemy objects initiated 
 
 	}
 
@@ -193,8 +185,7 @@ public class GamePanel extends Canvas implements Runnable {
 	// tick method for game objects
 	private void tick() {
 		if (state == STATE.PLAY) {
-			canon.tick();
-			c.tick();
+			controller.tick();
 		}
 	}
 
@@ -221,8 +212,7 @@ public class GamePanel extends Canvas implements Runnable {
 			// draw background
 			g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
 			
-			canon.render(g);
-			c.render(g);
+			controller.render(g);
 
 			/*
 			 * This sets the font, size and x and y-coordinates of the strings,
@@ -289,7 +279,7 @@ public class GamePanel extends Canvas implements Runnable {
 			}
 
 			System.out.println("XLOC: " + e.getX() + " YLOC: " + e.getY());
-			c.addObject(new BeanBag(canon.getX()+9, canon.getY() - 20, textures, e.getX(), e.getY()));
+			controller.addObject(new BeanBag(524, 645, textures, e.getX(), e.getY()));
 		}
 		
 		if (state == STATE.MENU) {
@@ -337,13 +327,18 @@ public class GamePanel extends Canvas implements Runnable {
 		}
 	}
 
+
 	/**
-	 * get sprite sheet method to load the image buffer of the sprite sheet.
+	 * getter for sprite sheets
+	 * @return - sprite sheet buffered image
 	 */
 	public BufferedImage getSpriteSheet() {
 		return spriteSheet;
 	}
 
+	/**
+	 * loads crosshair and replaces it for the cursor
+	 */
 	public void crosshair() {
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Image img = (Image) crosshairImage;

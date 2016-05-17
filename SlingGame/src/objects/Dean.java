@@ -22,11 +22,13 @@ public class Dean extends GameObject implements EnemyObjects {
 	boolean forward = true; // bool for forward/backward movement
 
 	/**
-	 * Trustee constructor
+	 * Dean Constructor
 	 * 
-	 * @param x - coordinate for trustee start
-	 * @param y - coordinate for trustee start
-	 * @param textures
+	 * @param x - coordinate for object start
+	 * @param y - coordinate for object start
+	 * @param textures - image load of the object
+	 * @param c - controller to set movement/spawn
+	 * @param game - gamepanel being used
 	 */
 	public Dean(double x, double y, Textures textures, Controller c, GamePanel game) {
 

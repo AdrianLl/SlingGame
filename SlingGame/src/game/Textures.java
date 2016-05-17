@@ -34,7 +34,6 @@ public class Textures {
 	 */
 	private void getTextures() {
 		// col,row,size
-		canon = ss.grabImage(6, 19, 18, 80);
 		beanbag = ss.grabImage(1, 19, 20, 20);
 
 		for (int i = 0, j = 1; i < 14; i++, j++) {
