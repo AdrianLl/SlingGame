@@ -54,7 +54,8 @@ public class GamePanel extends Canvas implements Runnable {
 	private BufferedImage background = null;
 	// background - loads the background image for the game
 	private BufferedImage crosshairImage = null;
-	private BufferedImage menuBackground = null;	
+	private BufferedImage menuBackground = null;
+	private BufferedImage helpBackground = null;
 
 	private Textures textures; // character animations, beanbags, canon images
 	private Controller controller;
@@ -69,6 +70,11 @@ public class GamePanel extends Canvas implements Runnable {
 	public Rectangle helpButton = new Rectangle(115, 725, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
 	public Rectangle quitButton = new Rectangle(215, 725, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
 	public Rectangle Restart_Button = new Rectangle(490, 515, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
+	
+	public Rectangle menuButtonHelp = new Rectangle(20, 721, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
+	public Rectangle helpButtonHelp = new Rectangle(120, 721, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
+	public Rectangle quitButtonHelp = new Rectangle(220, 721, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
+	public Rectangle Restart_ButtonHelp = new Rectangle(490, 515, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
 
 	private AudioPlayer sound;
 	
@@ -91,8 +97,9 @@ public class GamePanel extends Canvas implements Runnable {
 		try {
 			spriteSheet = loader.loadImage("/MainSprite.png");
 			background = loader.loadImage("/Background.png");
-			crosshairImage = loader.loadImage("/Crosshair.png");
+			crosshairImage = loader.loadImage("/crosshair.png");
 			menuBackground = loader.loadImage("/MenuBackground.png");
+			helpBackground = loader.loadImage("/HelpBackground.png");
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -225,8 +232,8 @@ public class GamePanel extends Canvas implements Runnable {
 			 * This sets the font, size and x and y-coordinates of the strings,
 			 * "PLAY", "MENU", "HELP" and "QUIT"
 			 */
-			Font font2 = new Font("cooper black", Font.BOLD, 18);
-			g.setFont(font2);
+			Font playMenuFont = new Font("cooper black", Font.BOLD, 18);
+			g.setFont(playMenuFont);
 			g.drawString("MENU", menuButton.x + 20, menuButton.y + 25);
 			g2d.draw(menuButton);
 			g.drawString("HELP", helpButton.x + 20, helpButton.y + 25);
@@ -249,6 +256,21 @@ public class GamePanel extends Canvas implements Runnable {
 		} else if (state == STATE.MENU) {
 			g.drawImage(menuBackground, 0, 0, getWidth(), getHeight(), this);
 
+		} else if (state == STATE.HELP){
+			
+			Graphics2D g2dHELP = (Graphics2D) g;
+			
+			g.drawImage(helpBackground, 0, 0, getWidth(), getHeight(), this);
+			
+			Font helpMenuFont = new Font("cooper black", Font.BOLD, 18);
+			g.setFont(helpMenuFont);
+			g.setColor(Color.YELLOW);
+			g.drawString("MENU", menuButtonHelp.x + 22, menuButtonHelp.y + 25);
+			g2dHELP.draw(menuButtonHelp);
+			g.drawString("HELP", helpButtonHelp.x + 22, helpButtonHelp.y + 25);
+			g2dHELP.draw(helpButtonHelp);
+			g.drawString("QUIT", quitButtonHelp.x + 20, quitButtonHelp.y + 25);
+			g2dHELP.draw(quitButtonHelp);
 		}
 		
 
@@ -273,45 +295,50 @@ public class GamePanel extends Canvas implements Runnable {
 			 * Designates the area on the starting screen where the "PLAY"
 			 * button is and changes the state to play when "PLAY" is clicked.
 			 */
+			
+			/*
+			 * 
+			 * public Rectangle menuButton = new Rectangle(15, 725, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
+	public Rectangle helpButton = new Rectangle(115, 725, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
+	public Rectangle quitButton = new Rectangle(215, 725, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
+	public Rectangle Restart_Button = new Rectangle(490, 515, GAMEPANEL_BUTTON_WIDTH, GAMEPANEL_BUTTON_HEIGHT);
+			 */
 			// MENU
-			if (mx >= 3 && mx <= 103 ){
-				if (my >= 735 && my <= 775) {
+			if (mx >= 15 && mx <= 115) {
+				if (my >= 725 && my <= 765) {
 					System.out.println("MENU PRESSED");
 					this.state = STATE.MENU;
 				}
 			}
 			// HELP
-			if (mx >= 103 && mx <= 203) {
-				if (my >= 735 && my <= 775) {
+			if (mx >= 115 && mx <= 215) {
+				if (my >= 725 && my <= 765) {
 					// Pressed help button
 					System.out.println("HELP PRESSED");
-					this.state = STATE.MENU;
+					this.state = STATE.HELP;
 				}
 			}
 			// QUIT
-			if (mx >= 203 && mx <= 303) {
-				if (my >= 735 && my <= 775) {
+			if (mx >= 215 && mx <= 315) {
+				if (my >= 725 && my <= 765) {
 					// Pressed quit button
 					System.out.println("QUIT PRESSED");
 					System.exit(1);
 				}
-			/*	
-			//Restarting the game
-			if(mx >= 480 && mx <= 550){
-				if(my >=370 && my <=505)
-					System.out.println("Restart game pressed");
-					System.exit(1);
+				/*
+				 * //Restarting the game if(mx >= 480 && mx <= 550){ if(my >=370
+				 * && my <=505) System.out.println("Restart game pressed");
+				 * System.exit(1); }
+				 */
 			}
-			*/
-		}
 
 			System.out.println("XLOC: " + e.getX() + " YLOC: " + e.getY());
-			controller.addObject(new BeanBag(524, 645, textures, e.getX(), e.getY(),colors[20-bagAmmo]));
+			controller.addObject(new BeanBag(524, 645, textures, e.getX(), e.getY(), colors[20 - bagAmmo]));
 			controller.removeObject();
 			bagAmmo--;
 		}
-		
-		if (state == STATE.MENU) {
+
+		else if (state == STATE.MENU) {
 
 			/*
 			 * Gets the x and y-coordinate of the cursor on the starting screen.
@@ -320,8 +347,8 @@ public class GamePanel extends Canvas implements Runnable {
 			int my = e.getY();
 
 			/*
-			 * Designates the area on the starting screen where the "PLAY" button is and changes the state to play 
-			 * when "PLAY" is clicked.
+			 * Designates the area on the starting screen where the "PLAY"
+			 * button is and changes the state to play when "PLAY" is clicked.
 			 */
 			if (mx >= 432 && mx <= 576) {
 				if (my >= 325 && my <= 425) {
@@ -330,11 +357,11 @@ public class GamePanel extends Canvas implements Runnable {
 					this.state = STATE.PLAY;
 				}
 			}
-			// 	HELP
+			// HELP
 			if (mx >= 258 && mx <= 403) {
 				if (my >= 436 && my <= 536) {
 					System.out.println("HELP PRESSED");
-					this.state = STATE.MENU;
+					this.state = STATE.HELP;
 				}
 			}
 
@@ -345,6 +372,44 @@ public class GamePanel extends Canvas implements Runnable {
 					System.out.println("QUIT PRESSED");
 					System.exit(1);
 				}
+			}
+		}
+
+		else if (state == STATE.HELP) {
+
+			/*
+			 * Gets the x and y-coordinate of the cursor on the starting screen.
+			 */
+			int mx = e.getX();
+			int my = e.getY();
+
+			/*
+			 * Designates the area on the starting screen where the "PLAY"
+			 * button is and changes the state to play when "PLAY" is clicked.
+			 */
+			// MENU
+			if (mx >= 20 && mx <= 120) {
+				if (my >= 721 && my <= 761) {
+					System.out.println("MENU PRESSED");
+					this.state = STATE.MENU;
+				}
+			}
+			// HELP
+			if (mx >= 120 && mx <= 220) {
+				if (my >= 721 && my <= 761) {
+					// Pressed help button
+					System.out.println("HELP PRESSED");
+					this.state = STATE.HELP;
+				}
+			}
+			// QUIT
+			if (mx >= 220 && mx <= 320) {
+				if (my >= 721 && my <= 761) {
+					// Pressed quit button
+					System.out.println("QUIT PRESSED");
+					System.exit(1);
+				}
+
 			}
 		}
 	}
