@@ -103,7 +103,7 @@ public class Dean extends GameObject implements EnemyObjects {
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle((int) x, (int) y, 30, 60);
+		return new Rectangle((int) x, (int) y, 50, 70);
 	}
 
 	@Override
