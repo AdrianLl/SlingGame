@@ -1,13 +1,16 @@
 package game;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.LinkedList;
 import java.util.Random;
 
-
+import objects.Dean;
 import objects.EnemyObjects;
 import objects.PlayerObjects;
 import objects.ScoreBeanBag;
+import objects.Student;
 import objects.Trustee;
 
 
@@ -21,7 +24,7 @@ public class Controller {
 	//Linked list of game objects (trustee, beanbag, etc)
 	private LinkedList<PlayerObjects> po = new LinkedList<PlayerObjects>();
 	private LinkedList<EnemyObjects> eo = new LinkedList<EnemyObjects>();
-	private LinkedList<ScoreBeanBag> scoreBag = new LinkedList<ScoreBeanBag>();
+	private LinkedList<ScoreBeanBag> scoreBags = new LinkedList<ScoreBeanBag>();
 	
 	//ScoreBoard Counter
 	private static int score = 0;
@@ -33,32 +36,27 @@ public class Controller {
 
 	Textures textures;
 	GamePanel game;
-	
-	private SoundFXPlayer soundFX;
 
+	private SoundFXPlayer soundFX = new SoundFXPlayer();
 	
 	public Controller(Textures textures, GamePanel game) {
 		//for now just randomly spawning in the x direction on the three paths
 		
-		soundFX = new SoundFXPlayer();
-		this.textures=textures;
-		this.game=game;
-		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 206, textures,this,game));
-		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 338, textures,this,game));
-		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 473, textures,this,game));
+		this.textures = textures;
+		this.game = game;
+
+		addObject(new Trustee(r.nextInt(1024), 206.0, textures, this, game));
+		addObject(new Trustee(r.nextInt(1024), 338.0, textures, this, game));
+		addObject(new Trustee(r.nextInt(1024), 473.0, textures, this, game));
 		
-		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 206, textures,this,game));
-		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 338, textures,this,game));
-		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 473, textures,this,game));
+		addObject(new Dean(r.nextInt(1024), 206.0, textures, this, game));
+		addObject(new Dean(r.nextInt(1024), 338.0, textures, this, game));
+		addObject(new Dean(r.nextInt(1024), 473.0, textures, this, game));
 		
-		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 206, textures,this,game));
-		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 338, textures,this,game));
-		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 473, textures,this,game));
-		
-		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 206, textures,this,game));
-		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 338, textures,this,game));
-		addObject(new Trustee(r.nextInt(GamePanel.WIDTH), 473, textures,this,game));
-		
+		addObject(new Student(r.nextInt(1024), 206.0, textures, this, game));
+		addObject(new Student(r.nextInt(1024), 338.0, textures, this, game));
+		addObject(new Student(r.nextInt(1024), 473.0, textures, this, game));
+
 		int startXline1 = 764;
 		int startYline1 = 647;
 
@@ -66,11 +64,11 @@ public class Controller {
 		int startYline2 = 673;
 
 		for (int i = 0; i < 10; i++) {
-			addScoreBag(new ScoreBeanBag(startXline1, startYline1, textures, GamePanel.colors[i]));
+			addObject(new ScoreBeanBag(startXline1, startYline1, textures, GamePanel.colors[i]));
 			startXline1 += 25;
 		}
 		for (int i = 10; i < 20; i++) {
-			addScoreBag(new ScoreBeanBag(startXline2, startYline2, textures, GamePanel.colors[i]));
+			addObject(new ScoreBeanBag(startXline2, startYline2, textures, GamePanel.colors[i]));
 			startXline2 += 25;
 		}
 	}
@@ -88,8 +86,8 @@ public class Controller {
 			enemyObj.tick();
 		}
 		
-		for (int i = 0; i < scoreBag.size(); i++) {
-			playerObj = scoreBag.get(i);
+		for (int i = 0; i < scoreBags.size(); i++) {
+			playerObj = scoreBags.get(i);
 			playerObj.tick();
 		}
 		
@@ -97,9 +95,12 @@ public class Controller {
 
 	public void render(Graphics g) {
 		//Draws the score +10 if it hits a trustee
-		g.drawString("Score " + score, 75 , 675);
-		
-		//Player Class
+		Font scoreFont = new Font("impact", 1, 60);
+		g.setFont(scoreFont);
+		g.setColor(Color.YELLOW);
+		g.drawString("" + score, 225, 680);
+
+		// Player Class
 		for (int i = 0; i < po.size(); i++) {
 			playerObj = po.get(i);
 			playerObj.render(g);
@@ -110,8 +111,8 @@ public class Controller {
 			enemyObj.render(g);
 		}
 		
-		for (int i = 0; i < scoreBag.size(); i++) {
-			playerObj = scoreBag.get(i);
+		for (int i = 0; i < scoreBags.size(); i++) {
+			playerObj = scoreBags.get(i);
 			playerObj.render(g);
 		}
 		
@@ -140,13 +141,13 @@ public class Controller {
 		score += 10;
 	}
 	
-	public void addScoreBag(ScoreBeanBag block) {
-		scoreBag.add(block);
-	}
-	
-	public void removeScoreBag() {
-		scoreBag.removeFirst();
-	}
+	public void addObject(ScoreBeanBag block) {
+        scoreBags.add(block);
+    }
+
+    public void removeObject() {
+        scoreBags.removeFirst();
+    }
 	
 	public LinkedList<PlayerObjects> getPlayerObjects(){
 		return po;

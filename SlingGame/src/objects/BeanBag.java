@@ -90,6 +90,14 @@ public class BeanBag extends GameObject implements PlayerObjects{
 		return x;
 	}
 	
+	public BeanBagColor getColor() {
+        return this.color;
+    }
+
+    public void setColor(BeanBagColor color) {
+        this.color = color;
+    }
+	
 	public Rectangle getBounds(){
 		return new Rectangle((int)x,(int)y,60,60);
 	}

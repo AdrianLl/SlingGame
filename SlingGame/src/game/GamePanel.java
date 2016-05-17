@@ -22,7 +22,6 @@ import objects.BeanBag;
 import objects.BeanBagColor;
 import objects.EnemyObjects;
 import objects.PlayerObjects;
-import objects.ScoreBeanBag;
 
 /**
  * GameCanvas will load game objects, render graphics, load sound, and initiate
@@ -73,7 +72,6 @@ public class GamePanel extends Canvas implements Runnable {
 	private AudioPlayer sound;
 	
 	public static BeanBagColor[] colors = new BeanBagColor[20];
-	private LinkedList<ScoreBeanBag> scoreBags = new LinkedList<ScoreBeanBag>();
 	private int bagAmmo = 20;
 	
 	/**
@@ -285,7 +283,7 @@ public class GamePanel extends Canvas implements Runnable {
 
 			System.out.println("XLOC: " + e.getX() + " YLOC: " + e.getY());
 			controller.addObject(new BeanBag(524, 645, textures, e.getX(), e.getY(),colors[20-bagAmmo]));
-			controller.removeScoreBag();
+			controller.removeObject();
 			bagAmmo--;
 		}
 		
@@ -351,24 +349,6 @@ public class GamePanel extends Canvas implements Runnable {
 	public void randomBagArray() {
 		for (int i = 0; i < 20; i++) {
 			colors[i] = BeanBagColor.randomBeanBag();
-		}
-	}
-	
-	public void drawBagArray() {
-
-		int startXline1 = 764;
-		int startYline1 = 647;
-
-		int startXline2 = 764;
-		int startYline2 = 673;
-
-		for (int i = 0; i < 10; i++) {
-			scoreBags.add(new ScoreBeanBag(startXline1, startYline1, textures, colors[i]));
-			startXline1 += 25;
-		}
-		for (int i = 10; i < 20; i++) {
-			scoreBags.add(new ScoreBeanBag(startXline2, startYline2, textures, colors[i]));
-			startXline2 += 25;
 		}
 	}
 }
